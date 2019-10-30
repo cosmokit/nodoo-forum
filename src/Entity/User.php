@@ -12,7 +12,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ApiResource
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
- * @UniqueEntity(fields={"email"}, message="Cette adresse email est déjà utilisée.")
+ * @UniqueEntity(fields={"email"}, message="This email address is already used.")
+ * @UniqueEntity(fields={"username"}, message="This username is already used")
  */
 class User implements UserInterface
 {
