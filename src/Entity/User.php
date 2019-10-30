@@ -14,7 +14,8 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 /**
  * @ApiResource(
  *      subresourceOperations={
- *          "topics_get_subresource"={}
+ *          "topics_get_subresource"={},
+ *          "topicReplies_get_subresource"={}
  *      }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -74,10 +75,17 @@ class User implements UserInterface
      */
     private $topics;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TopicReply", mappedBy="author", orphanRemoval=true)
+     * @ApiSubresource
+     */
+    private $topicReplies;
+
     public function __construct()
     {
         $this->created_at = new \Datetime();
         $this->topics = new ArrayCollection();
+        $this->topicReplies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,6 +222,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($topic->getAuthor() === $this) {
                 $topic->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TopicReply[]
+     */
+    public function getTopicReplies(): Collection
+    {
+        return $this->topicReplies;
+    }
+
+    public function addTopicReply(TopicReply $topicReply): self
+    {
+        if (!$this->topicReplies->contains($topicReply)) {
+            $this->topicReplies[] = $topicReply;
+            $topicReply->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTopicReply(TopicReply $topicReply): self
+    {
+        if ($this->topicReplies->contains($topicReply)) {
+            $this->topicReplies->removeElement($topicReply);
+            // set the owning side to null (unless already changed)
+            if ($topicReply->getAuthor() === $this) {
+                $topicReply->setAuthor(null);
             }
         }
 

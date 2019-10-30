@@ -64,3 +64,13 @@ security:
               roles: IS_AUTHENTICATED_FULLY,
               methods: [POST, PUT, PATCH, DELETE],
           }
+        - {
+              path: ^/api/topic_replies,
+              roles: IS_AUTHENTICATED_ANONYMOUSLY,
+              methods: [GET],
+          }
+        - {
+              path: ^/api/topic_replies,
+              roles: IS_AUTHENTICATED_FULLY,
+              methods: [POST, PUT, PATCH, DELETE],
+          }

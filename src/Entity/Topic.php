@@ -3,13 +3,17 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
  *      subresourceOperations={
- *          "api_topics_get_subresource"={}
+ *          "api_topics_get_subresource"={},
+ *          "replies_get_subresource"={}
  *      }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\TopicRepository")
@@ -66,9 +70,16 @@ class Topic
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TopicReply", mappedBy="topic", orphanRemoval=true)
+     * @ApiSubresource
+     */
+    private $replies;
+
     public function __construct()
     {
         $this->created_at = new \Datetime();
+        $this->replies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,6 +167,37 @@ class Topic
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TopicReply[]
+     */
+    public function getReplies(): Collection
+    {
+        return $this->replies;
+    }
+
+    public function addReply(TopicReply $reply): self
+    {
+        if (!$this->replies->contains($reply)) {
+            $this->replies[] = $reply;
+            $reply->setTopic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReply(TopicReply $reply): self
+    {
+        if ($this->replies->contains($reply)) {
+            $this->replies->removeElement($reply);
+            // set the owning side to null (unless already changed)
+            if ($reply->getTopic() === $this) {
+                $reply->setTopic(null);
+            }
+        }
 
         return $this;
     }
