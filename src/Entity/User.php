@@ -10,6 +10,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
@@ -18,6 +21,8 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  *          "topicReplies_get_subresource"={}
  *      }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"username":"partial"})
+ * @ApiFilter(OrderFilter::class, properties={"created_at"})
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  * @UniqueEntity(fields={"email"}, message="This email address is already used.")

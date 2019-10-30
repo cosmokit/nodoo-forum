@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "replies_get_subresource"={}
  *      }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"title":"partial", "author.username", "subcategory.name": "partial"})
+ * @ApiFilter(OrderFilter::class, properties={"created_at", "updated_at"})
  * @ORM\Entity(repositoryClass="App\Repository\TopicRepository")
  * @ORM\Table(name="forum_topics")
  */
