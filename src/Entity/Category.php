@@ -3,12 +3,19 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *      subresourceOperations={
+ *          "subcategories_get_subresource"={}
+ *      }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ORM\Table(name="forum_categories")
  * @UniqueEntity(fields={"name"}, message="This name is already used.")
@@ -37,6 +44,17 @@ class Category
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Subcategory", mappedBy="category", orphanRemoval=true)
+     * @ApiSubresource
+     */
+    private $subcategories;
+
+    public function __construct()
+    {
+        $this->subcategories = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +80,37 @@ class Category
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Subcategory[]
+     */
+    public function getSubcategories(): Collection
+    {
+        return $this->subcategories;
+    }
+
+    public function addSubcategory(Subcategory $subcategory): self
+    {
+        if (!$this->subcategories->contains($subcategory)) {
+            $this->subcategories[] = $subcategory;
+            $subcategory->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubcategory(Subcategory $subcategory): self
+    {
+        if ($this->subcategories->contains($subcategory)) {
+            $this->subcategories->removeElement($subcategory);
+            // set the owning side to null (unless already changed)
+            if ($subcategory->getCategory() === $this) {
+                $subcategory->setCategory(null);
+            }
+        }
 
         return $this;
     }
