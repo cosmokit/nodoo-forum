@@ -2,14 +2,21 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *      subresourceOperations={
+ *          "topics_get_subresource"={}
+ *      }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  * @UniqueEntity(fields={"email"}, message="This email address is already used.")
@@ -61,9 +68,16 @@ class User implements UserInterface
      */
     private $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Topic", mappedBy="author", orphanRemoval=true)
+     * @ApiSubresource
+     */
+    private $topics;
+
     public function __construct()
     {
         $this->created_at = new \Datetime();
+        $this->topics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,6 +185,37 @@ class User implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Topic[]
+     */
+    public function getTopics(): Collection
+    {
+        return $this->topics;
+    }
+
+    public function addTopic(Topic $topic): self
+    {
+        if (!$this->topics->contains($topic)) {
+            $this->topics[] = $topic;
+            $topic->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTopic(Topic $topic): self
+    {
+        if ($this->topics->contains($topic)) {
+            $this->topics->removeElement($topic);
+            // set the owning side to null (unless already changed)
+            if ($topic->getAuthor() === $this) {
+                $topic->setAuthor(null);
+            }
+        }
 
         return $this;
     }
