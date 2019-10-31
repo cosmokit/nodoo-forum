@@ -5,9 +5,11 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *         normalizationContext={"groups"={"topicsReplies_read"}},
  *         subresourceOperations={
  *              "api_replies_get_subresource"={},
  *              "api_topicReplies_get_subresource"={}
@@ -22,6 +24,7 @@ class TopicReply
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"topicsReplies_read"})
      */
     private $id;
 
@@ -29,28 +32,33 @@ class TopicReply
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(min=2, max=10000)
+     * @Groups({"topicsReplies_read"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"topicsReplies_read"})
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"topicsReplies_read"})
      */
     private $updated_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="topicReplies")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"topicsReplies_read"})
      */
     private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Topic", inversedBy="replies")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"topicsReplies_read"})
      */
     private $topic;
 

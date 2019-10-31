@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ApiResource(
+ *      normalizationContext={"groups"={"categories_read"}},
  *      subresourceOperations={
  *          "subcategories_get_subresource"={}
  *      }
@@ -27,6 +29,7 @@ class Category
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"categories_read", "subcategories_read"})
      */
     private $id;
 
@@ -34,6 +37,7 @@ class Category
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Length(min=3, max=25)
      * @Assert\NotBlank
+     * @Groups({"categories_read", "subcategories_read"})
      */
     private $name;
 
@@ -41,12 +45,14 @@ class Category
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Length(min=3, max=50)
      * @Assert\NotBlank
+     * @Groups({"categories_read", "subcategories_read"})
      */
     private $slug;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Subcategory", mappedBy="category", orphanRemoval=true)
      * @ApiSubresource
+     * @Groups({"categories_read"})
      */
     private $subcategories;
 
