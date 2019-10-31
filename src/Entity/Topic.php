@@ -17,7 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *      normalizationContext={"groups"={"topics_read"}},
  *      subresourceOperations={
- *          "api_topics_get_subresource"={},
+ *          "api_users_topics_get_subresource"={"normalization_context"={"groups"={"users_topics_subresources"}}},
+ *          "api_subcategories_topics_get_subresource"={"normalization_context"={"groups"={"subcategories_topics_subresources"}}},
  *          "replies_get_subresource"={}
  *      }
  * )
@@ -32,7 +33,7 @@ class Topic
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      */
     private $id;
 
@@ -40,7 +41,7 @@ class Topic
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=2, max=30)
      * @Assert\NotBlank
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      */
     private $title;
 
@@ -48,46 +49,47 @@ class Topic
      * @ORM\Column(type="text")
      * @Assert\Length(min=2, max=10000)
      * @Assert\NotBlank
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\DateTime
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      */
     private $updated_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Subcategory", inversedBy="topics")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"topics_read", "users_read"})
+     * @Groups({"topics_read", "users_topics_subresources"})
      */
     private $subcategory;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="topics")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"topics_read", "subcategories_read"})
+     * @Groups({"topics_read", "subcategories_read", "subcategories_topics_subresources"})
      */
     private $author;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources"})
      */
     private $slug;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\TopicReply", mappedBy="topic", orphanRemoval=true)
      * @ApiSubresource
+     * @Groups({"topics_read"})
      */
     private $replies;
 

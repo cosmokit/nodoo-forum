@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *      normalizationContext={"groups"={"subcategories_read"}},
  *      subresourceOperations={
- *          "api_subcategories_get_subresource"={},
+ *          "api_categories_subcategories_get_subresource"={"normalization_context"={"groups"={"categories_subcategories_subresources"}}},
  *          "topics_get_subresource"={}
  *      }
  * )
@@ -27,7 +27,7 @@ class Subcategory
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"subcategories_read", "categories_read"})
+     * @Groups({"subcategories_read", "categories_read", "topics_read", "categories_subcategories_subresources", "users_topics_subresources"})
      */
     private $id;
 
@@ -35,7 +35,7 @@ class Subcategory
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=4, max=35)
      * @Assert\NotBlank
-     * @Groups({"subcategories_read", "categories_read"})
+     * @Groups({"subcategories_read", "categories_read", "topics_read", "categories_subcategories_subresources", "users_topics_subresources"})
      */
     private $name;
 
@@ -43,7 +43,7 @@ class Subcategory
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=4, max=60)
      * @Assert\NotBlank
-     * @Groups({"subcategories_read", "categories_read"})
+     * @Groups({"subcategories_read", "categories_read", "topics_read", "categories_subcategories_subresources", "users_topics_subresources"})
      */
     private $slug;
 

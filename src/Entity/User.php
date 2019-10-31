@@ -36,7 +36,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
      */
     private $id;
 
@@ -44,7 +44,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Length(min=4, max=30)
      * @Assert\NotBlank
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
      */
     private $username;
 
@@ -52,13 +52,13 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email
      * @Assert\NotBlank
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
      */
     private $roles = [];
 
@@ -72,13 +72,12 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read"})
+     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read"})
      */
     private $updated_at;
 
@@ -92,6 +91,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\TopicReply", mappedBy="author", orphanRemoval=true)
      * @ApiSubresource
+     * @Groups({"users_read"})
      */
     private $topicReplies;
 

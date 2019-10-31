@@ -11,8 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *         normalizationContext={"groups"={"topicsReplies_read"}},
  *         subresourceOperations={
- *              "api_replies_get_subresource"={},
- *              "api_topicReplies_get_subresource"={}
+ *              "api_topics_replies_get_subresource"={"normalization_context"={"groups"={"topics_replies_subresources"}}},
+ *              "api_users_topicReplies_get_subresource"={"normalization_context"={"groups"={"users_topicsReplies_subresources"}}}
  *          }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\TopicReplyRepository")
@@ -24,7 +24,7 @@ class TopicReply
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"topicsReplies_read"})
+     * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
      */
     private $id;
 
@@ -32,33 +32,33 @@ class TopicReply
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(min=2, max=10000)
-     * @Groups({"topicsReplies_read"})
+     * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"topicsReplies_read"})
+     * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"topicsReplies_read"})
+     * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
      */
     private $updated_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="topicReplies")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"topicsReplies_read"})
+     * @Groups({"topics_read", "topicsReplies_read", "topics_replies_subresources"})
      */
     private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Topic", inversedBy="replies")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"topicsReplies_read"})
+     * @Groups({"topicsReplies_read", "users_read", "users_topicsReplies_subresources"})
      */
     private $topic;
 
