@@ -40,7 +40,7 @@ security:
         - {
               path: ^/api/users,
               roles: IS_AUTHENTICATED_FULLY,
-              methods: [GET, PUT, PATCH, DELETE],
+              methods: [GET, PUT, DELETE],
           }
         - {
               path: ^/api/categories,
@@ -50,7 +50,7 @@ security:
         - {
               path: ^/api/categories,
               roles: ROLE_ADMIN,
-              methods: [POST, PUT, PATCH, DELETE],
+              methods: [POST, PUT, DELETE],
           }
         - {
               path: ^/api/subcategories,
@@ -60,7 +60,7 @@ security:
         - {
               path: ^/api/subcategories,
               roles: ROLE_ADMIN,
-              methods: [POST, PUT, PATCH, DELETE],
+              methods: [POST, PUT, DELETE],
           }
         - {
               path: ^/api/topics,
@@ -70,7 +70,7 @@ security:
         - {
               path: ^/api/topics,
               roles: IS_AUTHENTICATED_FULLY,
-              methods: [POST, PUT, PATCH, DELETE],
+              methods: [POST, PUT, DELETE],
           }
         - {
               path: ^/api/topic_replies,
@@ -80,5 +80,5 @@ security:
         - {
               path: ^/api/topic_replies,
               roles: IS_AUTHENTICATED_FULLY,
-              methods: [POST, PUT, PATCH, DELETE],
+              methods: [POST, PUT, DELETE],
           }

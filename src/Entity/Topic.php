@@ -16,6 +16,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *      normalizationContext={"groups"={"topics_read"}},
+ *      itemOperations={
+ *         "get",
+ *         "put"={"access_control"="is_granted('ROLE_ADMIN') || previous_object == object.getAuthor()"},
+ *         "delete"={"access_control"="is_granted('ROLE_ADMIN') || object == object.getAuthor()"}
+ *      },
  *      subresourceOperations={
  *          "api_users_topics_get_subresource"={"normalization_context"={"groups"={"users_topics_subresources"}}},
  *          "api_subcategories_topics_get_subresource"={"normalization_context"={"groups"={"subcategories_topics_subresources"}}},

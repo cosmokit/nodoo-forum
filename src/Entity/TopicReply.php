@@ -10,6 +10,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *         normalizationContext={"groups"={"topicsReplies_read"}},
+ *         itemOperations={
+ *            "get",
+ *            "put"={"access_control"="is_granted('ROLE_ADMIN') || previous_object == object.getAuthor()"},
+ *            "delete"={"access_control"="is_granted('ROLE_ADMIN') || object == object.getAuthor()"}
+ *         },
  *         subresourceOperations={
  *              "api_topics_replies_get_subresource"={"normalization_context"={"groups"={"topics_replies_subresources"}}},
  *              "api_users_topicReplies_get_subresource"={"normalization_context"={"groups"={"users_topicsReplies_subresources"}}}

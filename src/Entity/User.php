@@ -18,6 +18,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ApiResource(
  *      normalizationContext={"groups"={"users_read"}},
+ *      itemOperations={
+ *         "get",
+ *         "put"={"access_control"="is_granted('ROLE_ADMIN') || previous_object == user"},
+ *         "delete"={"access_control"="is_granted('ROLE_ADMIN') || object == user"}
+ *      },
  *      subresourceOperations={
  *          "topics_get_subresource"={},
  *          "topicReplies_get_subresource"={}
