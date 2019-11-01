@@ -1,12 +1,15 @@
-*,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-}
+// Abstracts
+@import "abstracts/variables";
+@import "abstracts/mixins";
 
-html {
-  font-size: 62.5%; // 10px (1rem)
-  box-sizing: border-box;
-}
+// Base
+@import "base/base";
+@import "base/typography";
+@import "base/utilities";
+
+// Layout
+@import "layout/header";
+@import "layout/footer";
+
+// Pages
+@import "pages/home";

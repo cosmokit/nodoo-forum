@@ -1,8 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 
-const App = () => <h1>Nodoo Forum</h1>;
+const Root: React.SFC<any> = () => (
+  <BrowserRouter>
+    <main className="container">
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+      </Switch>
+    </main>
+  </BrowserRouter>
+);
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Root />, document.getElementById("root"));
 
 import "./scss/main.scss";
