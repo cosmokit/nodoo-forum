@@ -39,7 +39,7 @@ const Header: React.SFC<Props> = () => {
               <svg>
                 <use xlinkHref="../img/sprite.svg#icon-chat" />
               </svg>
-              Last Topics
+              Last topics
             </a>
           </li>
           <li>
