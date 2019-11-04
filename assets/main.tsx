@@ -1,18 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import Header from "./components/Header";
 
-const Root: React.SFC<any> = () => (
+ReactDOM.render(
   <BrowserRouter>
-    <main className="container">
+    <div className="container">
+      <Header />
+
       <Switch>
         <Route exact path="/" component={HomePage} />
       </Switch>
-    </main>
-  </BrowserRouter>
+    </div>
+  </BrowserRouter>,
+  document.getElementById("root")
 );
-
-ReactDOM.render(<Root />, document.getElementById("root"));
 
 import "./scss/main.scss";

@@ -1,6 +1,8 @@
-import React from "react";
+import * as React from "react";
 
-const HomePage: React.SFC<any> = () => {
+export interface Props {}
+
+const HomePage: React.SFC<Props> = () => {
   return (
     <div className="homepage">
       <h1>Home</h1>

@@ -11,6 +11,10 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  background-color: var(--color-grey-light);
+}
+
 .container {
   display: grid;
   grid-template-columns:
@@ -19,4 +23,9 @@ html {
       [col-start] minmax(min-content, 14rem) [col-end]
     )
     [center-end] minmax(6rem, 1fr) [full-end];
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
