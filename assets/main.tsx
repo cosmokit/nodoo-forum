@@ -10,9 +10,11 @@ ReactDOM.render(
     <div className="container">
       <Header />
 
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-      </Switch>
+      <main className="main">
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+        </Switch>
+      </main>
 
       <Footer />
     </div>

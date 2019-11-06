@@ -25,6 +25,17 @@ body {
     [center-end] minmax(6rem, 1fr) [full-end];
 }
 
+.main {
+  grid-column: center-start / center-end;
+  margin: 4rem 0;
+
+  display: grid;
+  grid-template-columns:
+    [main-start] 1fr [main-end sidebar-start] minmax(min-content, 18rem)
+    [sidebar-end];
+  grid-gap: 2rem;
+}
+
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-white);

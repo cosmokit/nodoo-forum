@@ -8,12 +8,12 @@ const Header: React.SFC<Props> = () => {
       <header className="header">
         <nav className="header__nav">
           <li>
-            <a href="#" className="header__link">
+            <a href="/" className="header__link">
               Home
             </a>
           </li>
           <li>
-            <a href="#" className="header__link header__link--active">
+            <a href="/" className="header__link header__link--active">
               Forum
             </a>
           </li>

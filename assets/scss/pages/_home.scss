@@ -1,3 +1,15 @@
 .homepage {
-  grid-column: center-start / center-end;
+  grid-column: main-start / sidebar-end;
+}
+
+.home-cards {
+  margin-top: 1rem;
+
+  &:not(:last-child) {
+    margin-bottom: 4rem;
+  }
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
 }

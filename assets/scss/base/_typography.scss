@@ -9,3 +9,46 @@ body {
 p {
   line-height: 1.6;
 }
+
+.underline-link {
+  color: var(--color-dark);
+  text-decoration: none;
+  background: linear-gradient(
+      to top,
+      transparent 10%,
+      rgba(#b43232, 0.5) 10.01%,
+      rgba(#b43232, 0.5) 40%,
+      transparent 40.01%
+    )
+    no-repeat left bottom / 0 100%;
+  transition: background-size 0.5s;
+
+  &:hover,
+  &--active {
+    background-size: 100% 100%;
+  }
+}
+
+.heading-2 {
+  display: inline-block;
+  color: var(--color-dark);
+  position: relative;
+  &:after {
+    content: "";
+    transform-origin: 0 0;
+    transform: scaleX(0);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.8rem;
+    background: var(--color-primary-light);
+    z-index: -1;
+    opacity: 0.8;
+    transition: transform 0.3s;
+  }
+
+  &:hover:after {
+    transform: scaleX(1);
+  }
+}

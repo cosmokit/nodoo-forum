@@ -47,7 +47,7 @@ const Footer: React.SFC<Props> = () => {
                 <use xlinkHref="../img/sprite.svg#icon-facebook" />
               </svg>
             </a>
-            <a target="_blank" href="#">
+            <a target="_blank" href="https://www.linkedin.com/in/alex-chesnay/">
               <svg className="footer__icon footer__icon--linkedin">
                 <use xlinkHref="../img/sprite.svg#icon-linkedin" />
               </svg>

@@ -1,67 +1,50 @@
-import * as React from "react";
+import React, { SFC, useEffect, useState } from "react";
+import CategoriesService from "../services/categories.service";
 
 export interface Props {}
 
-const HomePage: React.SFC<Props> = () => {
+export interface Categories {
+  id: number;
+  name: string;
+  slug: string;
+  subcategories: Array<Subcategories>;
+}
+
+export interface Subcategories {
+  id: number;
+  name: string;
+  slug: string;
+  category: Array<Categories | undefined>;
+  topics: Array<any>;
+}
+
+const HomePage: SFC<Props> = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    CategoriesService.findAll()
+      .then(categories => setCategories(categories))
+      .catch(err => console.error(err.response));
+  }, []);
+
   return (
     <div className="homepage">
-      <h1>Home</h1>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque
-        accusantium molestiae debitis ullam officiis ea nisi, voluptatibus
-        ratione provident natus in eius. Ipsam odit et veniam dolore voluptatem
-        vel sed.
-      </p>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      {categories.map((category: Categories) => (
+        <>
+          <h2 className="heading-2" key={category.id}>
+            {category.name}
+          </h2>
+          <div className="home-cards">
+            {category.subcategories.map((subcategory: Subcategories) => (
+              <div key={subcategory.id} className="card">
+                <a href="#" className="card__heading">
+                  {subcategory.name}
+                </a>
+              </div>
+            ))}
+          </div>
+        </>
+      ))}
     </div>
   );
 };
