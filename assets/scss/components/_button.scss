@@ -1,0 +1,36 @@
+.btn {
+  border: none;
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  padding: 1.5rem 4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rem;
+  text-transform: uppercase;
+
+  &:hover {
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+
+    transform: translateY(-0.3rem);
+  }
+
+  &:active,
+  &:focus {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+
+    outline: none;
+    transform: translateY(-0.1rem);
+  }
+
+  &--long {
+    width: 100%;
+  }
+  svg {
+    fill: currentColor;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+  }
+}

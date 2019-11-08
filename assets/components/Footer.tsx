@@ -1,37 +1,38 @@
-import * as React from "react";
+import React, { SFC } from "react";
+import { NavLink } from "react-router-dom";
 
 export interface Props {}
 
-const Footer: React.SFC<Props> = () => {
+const Footer: SFC<Props> = () => {
   return (
     <>
       <footer className="footer">
         <div className="footer__list">
           <h4 className="footer__heading">Navigation</h4>
           <div className="footer__links">
-            <a href="#" className="footer__link">
+            <NavLink to="/" className="footer__link">
               Home
-            </a>
-            <a href="#" className="footer__link">
+            </NavLink>
+            <NavLink to="/" className="footer__link">
               Forum
-            </a>
+            </NavLink>
           </div>
         </div>
         <div className="footer__list">
           <h4 className="footer__heading">About</h4>
           <div className="footer__links">
-            <a href="#" className="footer__link">
+            <NavLink to="/" className="footer__link">
               About
-            </a>
-            <a href="#" className="footer__link">
+            </NavLink>
+            <NavLink to="/" className="footer__link">
               Terms and rules
-            </a>
-            <a href="#" className="footer__link">
+            </NavLink>
+            <NavLink to="/" className="footer__link">
               Privacy policy
-            </a>
-            <a href="#" className="footer__link">
+            </NavLink>
+            <NavLink to="/" className="footer__link">
               Contact
-            </a>
+            </NavLink>
           </div>
         </div>
         <div className="footer__list">

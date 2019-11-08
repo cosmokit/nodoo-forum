@@ -1,0 +1,49 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  @supports (backdrop-filter: blur(10px)) {
+    backdrop-filter: blur(10px);
+  }
+
+  &__content {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 2rem 4rem rgba(#8d1919, 0.2);
+    border-radius: 7px;
+    padding: 2rem;
+    background-color: var(--color-white);
+    transform: translate(-50%, -50%) scale(0.25);
+    transition: all 0.5s 0.2s;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__close {
+    display: inline-block;
+    position: absolute;
+    top: 1px;
+    right: 1rem;
+    font-size: 3rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--color-dark);
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+}

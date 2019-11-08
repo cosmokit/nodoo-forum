@@ -80,6 +80,9 @@
     color: var(--color-white);
     opacity: 0.9;
     text-decoration: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
     &--active {
       font-weight: 600;
     }
@@ -90,14 +93,17 @@
       margin-right: 1rem;
       fill: currentColor;
     }
+    &:focus {
+      outline: none;
+    }
   }
 
   &__user-informations {
     margin-right: 20.5rem;
     display: flex;
 
-    a:not(:last-child) {
-      margin-right: 3rem;
+    a:last-child {
+      margin-left: 3rem;
     }
   }
 }

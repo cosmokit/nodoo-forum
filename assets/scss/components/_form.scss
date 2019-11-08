@@ -1,0 +1,50 @@
+.form-group:first-child {
+  margin-top: 2rem;
+}
+.form-group:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.form {
+  &__label {
+    display: block;
+    margin: 0.7rem 0 0 2rem;
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    transition: all 0.2s;
+  }
+
+  &__input {
+    display: block;
+    padding: 1.5rem 2rem;
+    width: 100%;
+    font-size: 1.5rem;
+    font-family: inherit;
+    border: none;
+    border-radius: 2px;
+    border-bottom: 2px solid var(--color-grey-light-2);
+    transition: all 0.3s;
+    &:focus {
+      border-bottom: 3px solid var(--color-primary);
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    }
+
+    /*
+    &:focus:invalid {
+      border-color: var(--color-dark);
+    }*/
+
+    &::-webkit-input-placeholder {
+      color: var(--color-grey);
+    }
+  }
+
+  &__input:placeholder-shown ~ &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+  }
+}

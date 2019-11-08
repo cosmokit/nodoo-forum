@@ -14,7 +14,7 @@ export interface Subcategories {
   id: number;
   name: string;
   slug: string;
-  category: Array<Categories | undefined>;
+  category: Array<Categories>;
   topics: Array<any>;
 }
 
