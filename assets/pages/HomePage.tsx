@@ -1,5 +1,6 @@
 import React, { SFC, useEffect, useState } from "react";
 import CategoriesService from "../services/categories.service";
+import HomeLoader from "../components/loaders/home.loader";
 
 export interface Props {}
 
@@ -20,31 +21,38 @@ export interface Subcategories {
 
 const HomePage: SFC<Props> = () => {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     CategoriesService.findAll()
-      .then(categories => setCategories(categories))
+      .then(categories => {
+        setCategories(categories);
+        setLoading(false);
+      })
       .catch(err => console.error(err.response));
   }, []);
 
   return (
     <div className="homepage">
-      {categories.map((category: Categories) => (
-        <>
-          <h2 className="heading-2" key={category.id}>
-            {category.name}
-          </h2>
-          <div className="home-cards">
-            {category.subcategories.map((subcategory: Subcategories) => (
-              <div key={subcategory.id} className="card">
-                <a href="#" className="card__heading">
-                  {subcategory.name}
-                </a>
-              </div>
-            ))}
-          </div>
-        </>
-      ))}
+      {loading && <HomeLoader />}
+
+      {!loading &&
+        categories.map((category: Categories) => (
+          <>
+            <h2 className="heading-2" key={category.id}>
+              {category.name}
+            </h2>
+            <div className="home-cards">
+              {category.subcategories.map((subcategory: Subcategories) => (
+                <div key={subcategory.id} className="card">
+                  <a href="#" className="card__heading">
+                    {subcategory.name}
+                  </a>
+                </div>
+              ))}
+            </div>
+          </>
+        ))}
     </div>
   );
 };
