@@ -26,6 +26,7 @@
     border-radius: 2px;
     border-bottom: 2px solid var(--color-grey-light-2);
     transition: all 0.3s;
+    background-color: transparent;
     &:focus {
       border-bottom: 3px solid var(--color-primary);
       outline: none;
@@ -40,11 +41,22 @@
     &::-webkit-input-placeholder {
       color: var(--color-grey);
     }
+
+    &--invalid {
+      border: 2px solid rgba(124, 37, 37, 0.452);
+      border-radius: 7px;
+    }
   }
 
   &__input:placeholder-shown ~ &__label {
     opacity: 0;
     visibility: hidden;
     transform: translateY(-4rem);
+  }
+
+  &__invalid-feedback {
+    color: rgba(124, 37, 37, 0.452);
+    font-size: 1.5rem;
+    font-weight: 600;
   }
 }

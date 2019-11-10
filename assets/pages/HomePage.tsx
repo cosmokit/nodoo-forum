@@ -1,5 +1,5 @@
 import React, { SFC, useEffect, useState } from "react";
-import CategoriesService from "../services/categories.service";
+import CategoryService from "../services/category.service";
 import HomeLoader from "../components/loaders/home.loader";
 
 export interface Props {}
@@ -24,7 +24,7 @@ const HomePage: SFC<Props> = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    CategoriesService.findAll()
+    CategoryService.findAll()
       .then(categories => {
         setCategories(categories);
         setLoading(false);

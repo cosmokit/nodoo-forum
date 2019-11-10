@@ -2,17 +2,23 @@ import React, { SFC, useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import Login from "./Login";
+import Register from "./Register";
 import AuthContext from "../contexts/auth.context";
 
 export interface Props {}
 
 const Header: SFC<Props> = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogin = () => {
     setShowLoginModal(true);
+  };
+
+  const handleRegister = () => {
+    setShowRegisterModal(true);
   };
 
   const handleDropdownMenu = () => {
@@ -27,6 +33,8 @@ const Header: SFC<Props> = () => {
   return (
     <>
       {showLoginModal && <Login onClose={setShowLoginModal} />}
+      {showRegisterModal && <Register onClose={setShowRegisterModal} />}
+
       <header className="header">
         <nav className="header__nav">
           <li>
@@ -76,18 +84,24 @@ const Header: SFC<Props> = () => {
         <div className="subheader__user-informations">
           {(!isAuthenticated && (
             <>
-              <button onClick={handleLogin} className="subheader__link">
+              <button
+                onClick={handleLogin}
+                className="subheader__link subheader__user-informations-btn"
+              >
                 <svg>
                   <use xlinkHref="../img/sprite.svg#icon-sign-in" />
                 </svg>
                 Login
               </button>
-              <NavLink to="/" className="subheader__link">
+              <button
+                onClick={handleRegister}
+                className="subheader__link subheader__user-informations-btn"
+              >
                 <svg>
                   <use xlinkHref="../img/sprite.svg#icon-user" />
                 </svg>
                 Register
-              </NavLink>
+              </button>
             </>
           )) || (
             <>
