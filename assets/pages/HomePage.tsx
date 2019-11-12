@@ -1,6 +1,7 @@
 import React, { SFC, useEffect, useState } from "react";
 import CategoryService from "../services/category.service";
 import HomeLoader from "../components/loaders/home.loader";
+import { NavLink } from "react-router-dom";
 
 export interface Props {}
 
@@ -45,9 +46,12 @@ const HomePage: SFC<Props> = () => {
             <div className="home-cards">
               {category.subcategories.map((subcategory: Subcategories) => (
                 <div key={subcategory.id} className="card">
-                  <a href="#" className="card__heading">
+                  <NavLink
+                    to={`/subcategory/${subcategory.id}`}
+                    className="card__heading"
+                  >
                     {subcategory.name}
-                  </a>
+                  </NavLink>
                 </div>
               ))}
             </div>

@@ -33,4 +33,17 @@
     height: 1.5rem;
     margin-right: 0.5rem;
   }
+
+  &--disabled {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--color-grey);
+    cursor: not-allowed;
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: none;
+      outline: none;
+      transform: translateY(0);
+    }
+  }
 }

@@ -23,6 +23,7 @@ const Register: SFC<Props> = ({ onClose }) => {
   const [transform, setTransform] = useState(
     "translate(-50%, -50%) scale(0.25)"
   );
+  const [isSubmit, setSubmit] = useState(false);
 
   const handleChange = (event: any) => {
     const { name, value } = event.currentTarget;
@@ -36,11 +37,14 @@ const Register: SFC<Props> = ({ onClose }) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
+    setSubmit(true);
+
     if (credentiels.password !== credentiels.confirmPassword) {
       setErrors({
         ...errors,
         confirmPassword: "Passwords must be the same."
       });
+      setSubmit(false);
     } else {
       UserService.register({
         username: credentiels.username,
@@ -49,6 +53,7 @@ const Register: SFC<Props> = ({ onClose }) => {
       })
         .then((response: any) => {
           onClose(false);
+          setSubmit(false);
         })
         .catch(err => {
           if (err.response.data.violations) {
@@ -57,6 +62,7 @@ const Register: SFC<Props> = ({ onClose }) => {
               responseErrors[violation.propertyPath] = violation.message;
             });
             setErrors(responseErrors);
+            setSubmit(false);
           }
         });
     }
@@ -165,11 +171,18 @@ const Register: SFC<Props> = ({ onClose }) => {
                 </span>
               )}
             </div>
-            <button type="submit" className="btn btn--long">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-user" />
-              </svg>
-              Register
+            <button
+              type="submit"
+              className={`btn btn--long ${isSubmit ? "btn--disabled" : ""}`}
+            >
+              {(!isSubmit && (
+                <>
+                  <svg>
+                    <use xlinkHref="../img/sprite.svg#icon-user" />
+                  </svg>
+                  Register
+                </>
+              )) || <>Loading...</>}
             </button>
           </form>
         </div>

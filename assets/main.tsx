@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import SubcategoryPage from "./pages/SubcategoryPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AuthService from "./services/auth.service";
@@ -21,6 +22,7 @@ const App = () => {
 
           <main className="main">
             <Switch>
+              <Route path="/subcategory/:id" component={SubcategoryPage} />
               <Route exact path="/" component={HomePage} />
             </Switch>
           </main>

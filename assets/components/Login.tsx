@@ -17,6 +17,7 @@ const Login: SFC<Props> = ({ onClose }) => {
   const [transform, setTransform] = useState(
     "translate(-50%, -50%) scale(0.25)"
   );
+  const [isSubmit, setSubmit] = useState(false);
 
   const handleChange = (event: any) => {
     const { name, value } = event.currentTarget;
@@ -30,14 +31,18 @@ const Login: SFC<Props> = ({ onClose }) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
+    setSubmit(true);
+
     AuthService.login(credentiels)
       .then(() => {
         setIsAuthenticated(true);
         onClose(false);
+        setSubmit(false);
       })
       .catch(err => {
         console.error(err.response);
         setError("Invalid username or password.");
+        setSubmit(false);
       });
   };
 
@@ -133,11 +138,18 @@ const Login: SFC<Props> = ({ onClose }) => {
                 Password
               </label>
             </div>
-            <button type="submit" className="btn btn--long">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-sign-in" />
-              </svg>
-              Login
+            <button
+              type="submit"
+              className={`btn btn--long ${isSubmit ? "btn--disabled" : ""}`}
+            >
+              {(!isSubmit && (
+                <>
+                  <svg>
+                    <use xlinkHref="../img/sprite.svg#icon-sign-in" />
+                  </svg>
+                  Login
+                </>
+              )) || <>Loading...</>}
             </button>
           </form>
         </div>
