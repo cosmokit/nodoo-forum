@@ -15,6 +15,12 @@ body {
   background-color: var(--color-grey-light);
 }
 
+hr {
+  margin: 2rem 0;
+  height: 0.3px;
+  background-color: var(--color-grey-light-2);
+}
+
 .container {
   display: grid;
   grid-template-columns:

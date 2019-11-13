@@ -105,7 +105,7 @@ const Header: SFC<Props> = () => {
             </>
           )) || (
             <>
-              <NavLink to="/" className="subheader__link">
+              <button className="subheader__link">
                 <svg>
                   <use xlinkHref="../img/sprite.svg#icon-user" />
                 </svg>
@@ -140,7 +140,7 @@ const Header: SFC<Props> = () => {
                     </button>
                   </div>
                 )}
-              </NavLink>
+              </button>
             </>
           )}
         </div>

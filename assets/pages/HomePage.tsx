@@ -47,7 +47,7 @@ const HomePage: SFC<Props> = () => {
               {category.subcategories.map((subcategory: Subcategories) => (
                 <div key={subcategory.id} className="card">
                   <NavLink
-                    to={`/subcategory/${subcategory.id}`}
+                    to={`/${subcategory.slug}--${subcategory.id}`}
                     className="card__heading"
                   >
                     {subcategory.name}

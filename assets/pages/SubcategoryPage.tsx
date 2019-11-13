@@ -2,6 +2,7 @@ import React, { SFC, useEffect, useState, PropsWithChildren } from "react";
 import SubcategoryService from "../services/subcategory.service";
 import Pagination, { getPaginatedData } from "../components/Pagination";
 import SubcategoryLoader from "../components/loaders/subcategory.loader";
+import { NavLink } from "react-router-dom";
 
 export interface Props {}
 
@@ -10,6 +11,7 @@ const SubcategoryPage: SFC<Props> = (props: PropsWithChildren<any>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const id: number = parseInt(props.match.params.id);
+  const slug: string = props.match.params.slug;
 
   useEffect(() => {
     SubcategoryService.find(id)
@@ -53,9 +55,12 @@ const SubcategoryPage: SFC<Props> = (props: PropsWithChildren<any>) => {
               {paginatedTopics.map((topic: any) => (
                 <tr key={topic.id}>
                   <td>
-                    <a href="#" className="underline-link">
+                    <NavLink
+                      to={`/topics/${topic.slug}--${topic.id}`}
+                      className="underline-link"
+                    >
                       {topic.title}
-                    </a>
+                    </NavLink>
                   </td>
                   <td className="u-text-center">
                     <a href="#">{topic.author.username}</a>
