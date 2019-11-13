@@ -2,12 +2,13 @@ import React, { SFC, useEffect, useState } from "react";
 import topicService from "../services/topic.service";
 import TopicLoader from "../components/loaders/topic.loader";
 import authService from "../services/auth.service";
-import { NavLink } from "react-router-dom";
+import Pagination, { getPaginatedData } from "../components/Pagination";
 
 export interface Props {}
 
 const TopicPage: SFC<Props> = (props: any) => {
   const [topic, setTopic] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const slug: string = props.match.params.slug;
   const id: number = parseInt(props.match.params.id);
@@ -21,6 +22,17 @@ const TopicPage: SFC<Props> = (props: any) => {
       })
       .catch(er => console.error);
   }, []);
+
+  const itemsPerPage: number = 5;
+  let paginatedReplies: Array<Object> = [];
+
+  if (topic !== undefined) {
+    paginatedReplies = getPaginatedData(
+      topic.replies,
+      itemsPerPage,
+      currentPage
+    );
+  }
 
   return (
     <div className="topicpage">
@@ -52,7 +64,7 @@ const TopicPage: SFC<Props> = (props: any) => {
             </div>
           </div>
           <hr />
-          {topic.replies.map((reply: any) => (
+          {paginatedReplies.map((reply: any) => (
             <div key={reply.id} className="topic-informations">
               <div className="topic-informations__author">
                 <a href="#">{reply.author.username}</a>
@@ -77,6 +89,13 @@ const TopicPage: SFC<Props> = (props: any) => {
               </div>
             </div>
           ))}
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            itemsLength={topic.replies.length}
+            currentPage={currentPage}
+            onPageChanged={setCurrentPage}
+            alignCenter={true}
+          />
           {(authService.isAuthenticated() && (
             <>
               <hr />

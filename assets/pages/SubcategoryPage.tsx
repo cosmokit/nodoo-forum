@@ -24,7 +24,7 @@ const SubcategoryPage: SFC<Props> = (props: PropsWithChildren<any>) => {
       });
   }, []);
 
-  const itemsPerPage: number = 3;
+  const itemsPerPage: number = 10;
   let paginatedTopics: Array<Object> = [];
 
   if (subcategory !== undefined) {
