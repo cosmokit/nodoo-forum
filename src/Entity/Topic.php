@@ -18,8 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      normalizationContext={"groups"={"topics_read"}},
  *      itemOperations={
  *         "get",
- *         "put"={"access_control"="is_granted('ROLE_ADMIN') || previous_object == object.getAuthor()"},
- *         "delete"={"access_control"="is_granted('ROLE_ADMIN') || object == object.getAuthor()"}
+ *         "put"={"security"="is_granted('ROLE_ADMIN') or object.getAuthor() == user"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN') or object.author == user"}
  *      },
  *      subresourceOperations={
  *          "api_users_topics_get_subresource"={"normalization_context"={"groups"={"users_topics_subresources"}}},
@@ -44,7 +44,7 @@ class Topic
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=2, max=30)
+     * @Assert\Length(min=2, max=80)
      * @Assert\NotBlank
      * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      */

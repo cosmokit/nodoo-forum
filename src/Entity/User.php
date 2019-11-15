@@ -20,8 +20,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *      normalizationContext={"groups"={"users_read"}},
  *      itemOperations={
  *         "get",
- *         "put"={"access_control"="is_granted('ROLE_ADMIN') || previous_object == user"},
- *         "delete"={"access_control"="is_granted('ROLE_ADMIN') || object == user"}
+ *         "put"={"security"="is_granted('ROLE_ADMIN') or object == user"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN') or object == user"}
  *      },
  *      subresourceOperations={
  *          "topics_get_subresource"={},

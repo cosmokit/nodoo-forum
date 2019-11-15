@@ -12,8 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         normalizationContext={"groups"={"topicsReplies_read"}},
  *         itemOperations={
  *            "get",
- *            "put"={"access_control"="is_granted('ROLE_ADMIN') || previous_object == object.getAuthor()"},
- *            "delete"={"access_control"="is_granted('ROLE_ADMIN') || object == object.getAuthor()"}
+ *            "put"={"security"="is_granted('ROLE_ADMIN') or object.getAuthor() == user"},
+ *            "delete"={"security"="is_granted('ROLE_ADMIN') or object.getAuthor() == user"}
  *         },
  *         subresourceOperations={
  *              "api_topics_replies_get_subresource"={"normalization_context"={"groups"={"topics_replies_subresources"}}},
