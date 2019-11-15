@@ -20,6 +20,7 @@
       text-decoration: none;
     }
   }
+
   &__main {
     border-left: 1px solid var(--color-grey-light-2);
     padding: 1rem 2rem;
@@ -27,12 +28,22 @@
     display: grid;
     grid-template-rows: 3.5rem 1fr 4rem;
   }
-  &__date {
+
+  &__header {
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid var(--color-grey-light-2);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__header-date {
     font-weight: 300;
     font-size: 1.4rem;
+  }
+
+  &__header-cta {
+    display: flex;
   }
 
   &__cta {
@@ -41,20 +52,20 @@
     border-top: 1px solid var(--color-grey-light-2);
     display: flex;
     justify-content: flex-end;
+  }
 
-    button {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      svg {
-        width: 1.5rem;
-        height: 1.5rem;
-        margin-right: 0.5rem;
-      }
+  button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0.5rem;
+    }
 
-      &:not(:last-child) {
-        margin-right: 1rem;
-      }
+    &:not(:last-child) {
+      margin-right: 1rem;
     }
   }
 }

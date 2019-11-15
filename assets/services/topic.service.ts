@@ -5,4 +5,10 @@ function find(id: number): Promise<any> {
   return axios.get(`${TOPICS_URL}/${id}`).then(response => response.data);
 }
 
-export default { find };
+function update(credentials: any): Promise<any> {
+  return axios
+    .put(`${TOPICS_URL}/${credentials.id}`, credentials)
+    .then(response => response);
+}
+
+export default { find, update };

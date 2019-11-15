@@ -1,8 +1,8 @@
 import React, { SFC, useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import AuthService from "../services/auth.service";
-import Login from "./Login";
-import Register from "./Register";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 import AuthContext from "../contexts/auth.context";
 
 export interface Props {}
@@ -32,8 +32,8 @@ const Header: SFC<Props> = () => {
 
   return (
     <>
-      {showLoginModal && <Login onClose={setShowLoginModal} />}
-      {showRegisterModal && <Register onClose={setShowRegisterModal} />}
+      {showLoginModal && <LoginPage onClose={setShowLoginModal} />}
+      {showRegisterModal && <RegisterPage onClose={setShowRegisterModal} />}
 
       <header className="header">
         <nav className="header__nav">

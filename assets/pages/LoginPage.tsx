@@ -6,7 +6,7 @@ export interface Props {
   onClose: (value: boolean) => void;
 }
 
-const Login: SFC<Props> = ({ onClose }) => {
+const LoginPage: SFC<Props> = ({ onClose }) => {
   const { setIsAuthenticated } = useContext(AuthContext);
   const [credentiels, setCredentials] = useState({
     username: "",
@@ -158,4 +158,4 @@ const Login: SFC<Props> = ({ onClose }) => {
   );
 };
 
-export default Login;
+export default LoginPage;

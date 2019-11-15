@@ -6,7 +6,7 @@ export interface Props {
   onClose: (value: boolean) => void;
 }
 
-const Register: SFC<Props> = ({ onClose }) => {
+const RegisterPage: SFC<Props> = ({ onClose }) => {
   const [credentiels, setCredentials] = useState({
     username: "",
     email: "",
@@ -235,4 +235,4 @@ const Register: SFC<Props> = ({ onClose }) => {
   );
 };
 
-export default Register;
+export default RegisterPage;

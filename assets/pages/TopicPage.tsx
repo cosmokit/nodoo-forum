@@ -3,11 +3,13 @@ import topicService from "../services/topic.service";
 import TopicLoader from "../components/loaders/topic.loader";
 import authService from "../services/auth.service";
 import Pagination, { getPaginatedData } from "../components/Pagination";
+import EditTopicPage from "./EditTopicPage";
 
 export interface Props {}
 
 const TopicPage: SFC<Props> = (props: any) => {
   const [topic, setTopic] = useState();
+  const [showEditModal, setShowEditModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const slug: string = props.match.params.slug;
@@ -34,8 +36,23 @@ const TopicPage: SFC<Props> = (props: any) => {
     );
   }
 
+  const handleEditBtnClicked = () => {
+    setShowEditModal(true);
+  };
+
   return (
     <div className="topicpage">
+      {showEditModal && (
+        <EditTopicPage
+          topic={{
+            id: topic.id,
+            title: topic.title,
+            content: topic.content
+          }}
+          updateTopic={setTopic}
+          onClose={setShowEditModal}
+        />
+      )}
       {loading && <TopicLoader />}
       {!loading && topic && (
         <>
@@ -45,7 +62,20 @@ const TopicPage: SFC<Props> = (props: any) => {
               <a href="#">{topic.author.username}</a>
             </div>
             <div className="topic-informations__main">
-              <p className="topic-informations__date">Created at 00/00/00</p>
+              <div className="topic-informations__header">
+                <p className="topic-informations__header-date">
+                  Created at 00/00/00
+                </p>
+                {authService.isAuthenticated() && (
+                  <div className="topic-informations__header-cta">
+                    <button onClick={handleEditBtnClicked}>
+                      <svg>
+                        <use xlinkHref="../img/sprite.svg#icon-pencil" />
+                      </svg>
+                    </button>
+                  </div>
+                )}
+              </div>
               <p>{topic.content}</p>
               <div className="topic-informations__cta">
                 <button>

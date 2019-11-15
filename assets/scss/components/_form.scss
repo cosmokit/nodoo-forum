@@ -16,7 +16,8 @@
     transition: all 0.2s;
   }
 
-  &__input {
+  &__input,
+  &__textarea {
     display: block;
     padding: 1.5rem 2rem;
     width: 100%;
@@ -52,6 +53,16 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-4rem);
+  }
+
+  &__textarea:placeholder-shown ~ &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+  }
+
+  &__textarea {
+    resize: none;
   }
 
   &__invalid-feedback {
