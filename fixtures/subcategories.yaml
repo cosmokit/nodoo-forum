@@ -1,0 +1,5 @@
+App\Entity\Subcategory:
+  subcategory_{1..27}:
+    name: <sentence(2)>
+    slug: <slug(2)>
+    category: "@category_*"

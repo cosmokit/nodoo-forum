@@ -16,9 +16,11 @@
     "symfony/yaml": "4.3.*"
   },
   "require-dev": {
-    "doctrine/doctrine-fixtures-bundle": "^3.2",
-    "fzaninotto/faker": "^1.8",
-    "symfony/maker-bundle": "^1.14"
+    "hautelook/alice-bundle": "^2.5",
+    "justinrainbow/json-schema": "^5.2",
+    "symfony/http-client": "4.3.*",
+    "symfony/maker-bundle": "^1.14",
+    "symfony/test-pack": "^1.0"
   },
   "config": {
     "preferred-install": {

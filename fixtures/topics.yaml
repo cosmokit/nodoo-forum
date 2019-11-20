@@ -1,0 +1,7 @@
+App\Entity\Topic:
+  topic_{1..316}:
+    title: <sentence(5)>
+    slug: <slug(5)>
+    content: <text()>
+    author: "@user_*"
+    subcategory: "@subcategory_*"

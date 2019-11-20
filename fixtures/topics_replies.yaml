@@ -1,0 +1,5 @@
+App\Entity\TopicReply:
+  topicReply_{1..713}:
+    content: <text()>
+    author: "@user_*"
+    topic: "@topic_*"

@@ -57,7 +57,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email
      * @Assert\NotBlank
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
+     * @Groups({"users_read"})
      */
     private $email;
 
