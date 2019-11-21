@@ -1,4 +1,4 @@
-export const API_URL: string = "http://localhost:8000/api";
+const API_URL: string | undefined = process.env.API_URL;
 
 export const LOGIN_URL: string = `${API_URL}/authentication_token`;
 
