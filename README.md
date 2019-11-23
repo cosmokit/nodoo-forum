@@ -6,7 +6,7 @@
 - [Nodoo Forum](#nodoo-forum)
   - [Installation](#installation)
   - [Demo](#demo)
-  - [Licence](#license)
+  - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
