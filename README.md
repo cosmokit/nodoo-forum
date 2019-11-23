@@ -1,11 +1,42 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+
+- [Nodoo Forum](#nodoo-forum)
+  - [Installation](#installation)
+  - [Demo](#demo)
+  - [Licence](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Nodoo Forum
 
-Forum de discussion développée avec [Symfony](https://symfony.com/) et [React](https://fr.reactjs.org/).
+Forum software developed with [Symfony](https://symfony.com/) and [React](https://fr.reactjs.org/).
+
+## Installation
+
+```
+make
+# shows all the available commands
+
+make install
+# install dependencies, assets and database
+
+make test
+# launches functional tests
+
+make watch
+# launches live assets compilation
+
+php -S localhost:8000 -t public/
+# launches the internal php server
+```
 
 ## Demo
 
 [DEMO](https://www.nodoo-forum.alex-chesnay.fr/)
 
-## Licence
+## License
 
-Dépôt sous licence [MIT](https://choosealicense.com/licenses/mit/).
+Repository under MIT license [MIT](https://choosealicense.com/licenses/mit/).

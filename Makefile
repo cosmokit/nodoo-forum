@@ -1,5 +1,5 @@
 .SILENT:
-.PHONY: install test server help cache-clear assets watch db fixtures doc server
+.PHONY: install test server help cache-clear assets watch db fixtures doc
 
 .DEFAULT_GOAL = help
 
@@ -21,23 +21,23 @@ yarn.lock: package.json
 node_modules: yarn.lock
 	yarn install
 
-assets: node_modules ## Compiling assets with Webpack Encore
+assets: node_modules ## Compile assets with Webpack Encore
 	yarn run dev
 
-watch: node_modules ## Live compilation assets with Webpack Encore
+watch: node_modules ## Live compiling assets with Webpack Encore
 	yarn run dev-server
 
-db: vendor ## Database creation
+db: vendor ## Creating the database and launching migrations
 	-bin/console doctrine:database:drop --if-exists --force
 	-bin/console doctrine:database:create --if-not-exists
 	bin/console doctrine:migrations:migrate --no-interaction
 
-fixtures: ## Fixtures loading
-	bin/console hautelook:fixtures:load--no-interaction
+fixtures: ## Loading data fixtures
+	bin/console hautelook:fixtures:load
 
-install: db assets ## Install dependencies & assets
+install: db assets ## Install dependencies, assets and database
 
-test: vendor ## Start functionnal tests
+test: vendor ## Launches functional tests
 	bin/phpunit
 
 cache-clear: vendor ## Clear cache
