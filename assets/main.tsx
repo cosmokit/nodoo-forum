@@ -15,8 +15,11 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     AuthService.isAuthenticated()
   );
+  const [userData, setUserData] = useState(AuthService.getUserData());
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, userData, setUserData }}
+    >
       <BrowserRouter>
         <div className="container">
           <Header />

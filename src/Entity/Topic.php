@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      itemOperations={
  *         "get",
  *         "put"={"security"="is_granted('ROLE_ADMIN') or object.getAuthor() == user"},
- *         "delete"={"security"="is_granted('ROLE_ADMIN') or object.author == user"}
+ *         "delete"={"security"="is_granted('ROLE_ADMIN') or object.getAuthor() == user"}
  *      },
  *      subresourceOperations={
  *          "api_users_topics_get_subresource"={"normalization_context"={"groups"={"users_topics_subresources"}}},

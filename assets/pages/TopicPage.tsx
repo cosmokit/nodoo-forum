@@ -1,17 +1,20 @@
-import React, { SFC, useEffect, useState } from "react";
+import React, { SFC, useEffect, useState, useContext } from "react";
 import topicService from "../services/topic.service";
 import TopicLoader from "../components/loaders/topic.loader";
-import authService from "../services/auth.service";
 import Pagination, { getPaginatedData } from "../components/Pagination";
 import EditTopicPage from "./EditTopicPage";
+import AuthContext from "../contexts/auth.context";
+import DeleteTopicPage from "./DeleteTopicPage";
 
 export interface Props {}
 
 const TopicPage: SFC<Props> = (props: any) => {
   const [topic, setTopic] = useState();
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [showEditTopicModal, setShowEditTopicModal] = useState(false);
+  const [showDeleteTopicModal, setShowDeleteTopicModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const { isAuthenticated, userData } = useContext(AuthContext);
   const slug: string = props.match.params.slug;
   const id: number = parseInt(props.match.params.id);
 
@@ -37,12 +40,16 @@ const TopicPage: SFC<Props> = (props: any) => {
   }
 
   const handleEditBtnClicked = () => {
-    setShowEditModal(true);
+    setShowEditTopicModal(true);
+  };
+
+  const handleDeleteBtnClicked = () => {
+    setShowDeleteTopicModal(true);
   };
 
   return (
     <div className="topicpage">
-      {showEditModal && (
+      {showEditTopicModal && (
         <EditTopicPage
           topic={{
             id: topic.id,
@@ -50,8 +57,11 @@ const TopicPage: SFC<Props> = (props: any) => {
             content: topic.content
           }}
           updateTopic={setTopic}
-          onClose={setShowEditModal}
+          onClose={setShowEditTopicModal}
         />
+      )}
+      {showDeleteTopicModal && (
+        <DeleteTopicPage id={topic.id} onClose={setShowDeleteTopicModal} />
       )}
       {loading && <TopicLoader />}
       {!loading && topic && (
@@ -66,15 +76,21 @@ const TopicPage: SFC<Props> = (props: any) => {
                 <p className="topic-informations__header-date">
                   Created at 00/00/00
                 </p>
-                {authService.isAuthenticated() && (
-                  <div className="topic-informations__header-cta">
-                    <button onClick={handleEditBtnClicked}>
-                      <svg>
-                        <use xlinkHref="../img/sprite.svg#icon-pencil" />
-                      </svg>
-                    </button>
-                  </div>
-                )}
+                {isAuthenticated &&
+                  userData.username === topic.author.username && (
+                    <div className="topic-informations__header-cta">
+                      <button onClick={handleEditBtnClicked}>
+                        <svg>
+                          <use xlinkHref="../img/sprite.svg#icon-pencil" />
+                        </svg>
+                      </button>
+                      <button onClick={handleDeleteBtnClicked}>
+                        <svg>
+                          <use xlinkHref="../img/sprite.svg#icon-trash" />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
               </div>
               <p>{topic.content}</p>
               <div className="topic-informations__cta">
@@ -124,9 +140,8 @@ const TopicPage: SFC<Props> = (props: any) => {
             itemsLength={topic.replies.length}
             currentPage={currentPage}
             onPageChanged={setCurrentPage}
-            alignCenter={true}
           />
-          {(authService.isAuthenticated() && (
+          {(isAuthenticated && (
             <>
               <hr />
               Reply form here

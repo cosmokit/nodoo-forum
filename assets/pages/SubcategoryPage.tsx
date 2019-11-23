@@ -77,7 +77,6 @@ const SubcategoryPage: SFC<Props> = (props: PropsWithChildren<any>) => {
             itemsLength={subcategory.topics.length}
             currentPage={currentPage}
             onPageChanged={setCurrentPage}
-            alignCenter={true}
           />
         </>
       )}

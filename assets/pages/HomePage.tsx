@@ -1,4 +1,4 @@
-import React, { SFC, useEffect, useState } from "react";
+import React, { SFC, useEffect, useState, Fragment } from "react";
 import CategoryService from "../services/category.service";
 import HomeLoader from "../components/loaders/home.loader";
 import { NavLink } from "react-router-dom";
@@ -39,10 +39,8 @@ const HomePage: SFC<Props> = () => {
 
       {!loading &&
         categories.map((category: Categories) => (
-          <>
-            <h2 className="heading-2" key={category.id}>
-              {category.name}
-            </h2>
+          <Fragment key={category.id}>
+            <h2 className="heading-2">{category.name}</h2>
             <div className="home-cards">
               {category.subcategories.map((subcategory: Subcategories) => (
                 <div key={subcategory.id} className="card">
@@ -55,7 +53,7 @@ const HomePage: SFC<Props> = () => {
                 </div>
               ))}
             </div>
-          </>
+          </Fragment>
         ))}
     </div>
   );

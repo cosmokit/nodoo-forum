@@ -7,7 +7,7 @@ export interface Props {
 }
 
 const LoginPage: SFC<Props> = ({ onClose }) => {
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { setIsAuthenticated, setUserData } = useContext(AuthContext);
   const [credentiels, setCredentials] = useState({
     username: "",
     password: ""
@@ -36,6 +36,7 @@ const LoginPage: SFC<Props> = ({ onClose }) => {
     AuthService.login(credentiels)
       .then(() => {
         setIsAuthenticated(true);
+        setUserData({ username: credentiels.username });
         onClose(false);
         setSubmit(false);
       })

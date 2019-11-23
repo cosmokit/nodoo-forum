@@ -4,7 +4,6 @@ export interface Props {
   itemsPerPage: number;
   itemsLength: number;
   currentPage: number;
-  alignCenter: boolean;
   onPageChanged: any;
 }
 
@@ -12,7 +11,6 @@ const Pagination: SFC<Props> = ({
   itemsPerPage,
   itemsLength,
   currentPage,
-  alignCenter,
   onPageChanged
 }: PropsWithChildren<Props>): FunctionComponentElement<Props> => {
   const handleChange = (page: number) => {
@@ -27,9 +25,7 @@ const Pagination: SFC<Props> = ({
 
   return (
     (pages.length > 1 && (
-      <div
-        className={`pagination ${alignCenter ? "pagination--centered" : ""}`}
-      >
+      <div className="pagination pagination--centered">
         <ul>
           {currentPage > 1 && (
             <li className="pagination__item">

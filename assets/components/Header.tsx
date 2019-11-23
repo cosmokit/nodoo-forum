@@ -10,7 +10,12 @@ export interface Props {}
 const Header: SFC<Props> = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const {
+    isAuthenticated,
+    setIsAuthenticated,
+    userData,
+    setUserData
+  } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogin = () => {
@@ -28,6 +33,7 @@ const Header: SFC<Props> = () => {
   const handleLogout = () => {
     AuthService.logout();
     setIsAuthenticated(false);
+    setUserData({});
   };
 
   return (
@@ -109,38 +115,38 @@ const Header: SFC<Props> = () => {
                 <svg>
                   <use xlinkHref="../img/sprite.svg#icon-user" />
                 </svg>
-                John Doe
-                <button
-                  onClick={handleDropdownMenu}
-                  className="dropdown__btn u-margin-left-sm"
-                >
-                  {(!showDropdown && (
-                    <svg>
-                      <use xlinkHref="../img/sprite.svg#icon-chevron-down" />
-                    </svg>
-                  )) || (
-                    <svg>
-                      <use xlinkHref="../img/sprite.svg#icon-chevron-up" />
-                    </svg>
-                  )}
-                </button>
-                {showDropdown && (
-                  <div className="dropdown__menu">
-                    <NavLink to="#" className="dropdown__item">
-                      My profile
-                    </NavLink>
-                    <button
-                      onClick={handleLogout}
-                      className="dropdown__item u-text-danger"
-                    >
-                      <svg>
-                        <use xlinkHref="../img/sprite.svg#icon-sign-out" />
-                      </svg>
-                      Logout
-                    </button>
-                  </div>
+                {userData.username}
+              </button>
+              <button
+                onClick={handleDropdownMenu}
+                className="dropdown__btn u-margin-left-sm"
+              >
+                {(!showDropdown && (
+                  <svg>
+                    <use xlinkHref="../img/sprite.svg#icon-chevron-down" />
+                  </svg>
+                )) || (
+                  <svg>
+                    <use xlinkHref="../img/sprite.svg#icon-chevron-up" />
+                  </svg>
                 )}
               </button>
+              {showDropdown && (
+                <div className="dropdown__menu">
+                  <NavLink to="#" className="dropdown__item">
+                    My profile
+                  </NavLink>
+                  <button
+                    onClick={handleLogout}
+                    className="dropdown__item u-text-danger"
+                  >
+                    <svg>
+                      <use xlinkHref="../img/sprite.svg#icon-sign-out" />
+                    </svg>
+                    Logout
+                  </button>
+                </div>
+              )}
             </>
           )}
         </div>

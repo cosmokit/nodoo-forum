@@ -17,7 +17,7 @@ function logout(): void {
 function load(): void {
   const token: string | null = window.localStorage.getItem("authToken");
   if (token) {
-    const { exp } = jwtDecode(token);
+    const { exp, username, roles } = jwtDecode(token);
     if (exp > new Date().getTime() / 1000) {
       axios.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -37,4 +37,14 @@ function isAuthenticated(): boolean {
   return false;
 }
 
-export default { load, isAuthenticated, login, logout };
+function getUserData(): any {
+  const token: string | null = window.localStorage.getItem("authToken");
+  if (token) {
+    const { exp, username, roles } = jwtDecode(token);
+    if (exp > new Date().getTime() / 1000) {
+      return { username, roles };
+    }
+  }
+}
+
+export default { load, isAuthenticated, login, logout, getUserData };

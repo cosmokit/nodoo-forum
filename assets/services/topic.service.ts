@@ -11,4 +11,8 @@ function update(credentials: any): Promise<any> {
     .then(response => response);
 }
 
-export default { find, update };
+function deleteTopic(id: number): Promise<any> {
+  return axios.delete(`${TOPICS_URL}/${id}`);
+}
+
+export default { find, update, deleteTopic };
