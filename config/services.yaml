@@ -28,3 +28,12 @@ services:
     App\Events\PasswordEncoderSubscriber:
         tags:
             name: doctrine.event_subscriber
+
+    acme_api.event.jwt_created_listener:
+        class: App\Events\JWTCreationSubscriber
+        tags:
+            - {
+                  name: kernel.event_listener,
+                  event: lexik_jwt_authentication.on_jwt_created,
+                  method: onJWTCreated,
+              }

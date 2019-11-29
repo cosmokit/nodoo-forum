@@ -6,6 +6,8 @@ function login(data: { username: string; password: string }): Promise<any> {
   return axios.post(LOGIN_URL, data).then(response => {
     window.localStorage.setItem("authToken", response.data.token);
     axios.defaults.headers["Authorization"] = `Bearer ${response.data.token}`;
+
+    return jwtDecode(response.data.token);
   });
 }
 
@@ -17,7 +19,7 @@ function logout(): void {
 function load(): void {
   const token: string | null = window.localStorage.getItem("authToken");
   if (token) {
-    const { exp, username, roles } = jwtDecode(token);
+    const { exp } = jwtDecode(token);
     if (exp > new Date().getTime() / 1000) {
       axios.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -40,10 +42,9 @@ function isAuthenticated(): boolean {
 function getUserData(): any {
   const token: string | null = window.localStorage.getItem("authToken");
   if (token) {
-    const { exp, username, roles } = jwtDecode(token);
-    console.log(jwtDecode(token));
+    const { exp, id, username, roles } = jwtDecode(token);
     if (exp > new Date().getTime() / 1000) {
-      return { username, roles };
+      return { id, username, roles };
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { SFC, useState, useEffect, useContext } from "react";
+import React, { SFC, useState, useEffect, useContext, useReducer } from "react";
 import AuthService from "../services/auth.service";
 import AuthContext from "../contexts/auth.context";
 
@@ -34,9 +34,13 @@ const LoginPage: SFC<Props> = ({ onClose }) => {
     setSubmit(true);
 
     AuthService.login(credentiels)
-      .then(() => {
+      .then((data: any) => {
         setSubmit(false);
-        setUserData({ username: credentiels.username });
+        setUserData({
+          id: data.id,
+          username: data.username,
+          roles: data.roles
+        });
         setIsAuthenticated(true);
         onClose(false);
       })

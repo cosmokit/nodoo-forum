@@ -61,9 +61,7 @@ const TopicPage: SFC<Props> = (props: any) => {
             currentPage={currentPage}
             onPageChanged={setCurrentPage}
           />
-          {(isAuthenticated && (
-            <TopicReplyForm isEditing={false} topic_id={topic.id} />
-          )) || (
+          {(isAuthenticated && <TopicReplyForm topic_id={topic.id} />) || (
             <p className="u-text-center u-margin-top-sm">
               You must be logged in to write a reply.
             </p>

@@ -4,10 +4,9 @@ import authContext from "../contexts/auth.context";
 
 export interface TopicReplyFormProps {
   topic_id: number;
-  isEditing: boolean;
 }
 
-const TopicReplyForm: SFC<TopicReplyFormProps> = ({ isEditing, topic_id }) => {
+const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id }) => {
   const [content, setContent] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
   const { userData } = useContext(authContext);
@@ -22,28 +21,17 @@ const TopicReplyForm: SFC<TopicReplyFormProps> = ({ isEditing, topic_id }) => {
     const credentials = {
       content: content,
       topic: `/api/topics/${topic_id}`,
-      author: `/api/users/1`
+      author: `/api/users/${userData.id}`
     };
 
-    if (isEditing) {
-      topicReplyService
-        .update(credentials)
-        .then(response => {
-          console.log(response);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    } else {
-      topicReplyService
-        .create(credentials)
-        .then(response => {
-          console.log(response);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    }
+    topicReplyService
+      .create(credentials)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   return (
@@ -53,7 +41,7 @@ const TopicReplyForm: SFC<TopicReplyFormProps> = ({ isEditing, topic_id }) => {
           name="content"
           className="form__textarea"
           value={content}
-          placeholder={`Content ${isEditing ? 'EDITING FIELD': ''}`}
+          placeholder="Content"
           onChange={handleChange}
           id="content"
           minLength={2}
