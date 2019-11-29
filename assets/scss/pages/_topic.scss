@@ -44,6 +44,21 @@
 
   &__header-cta {
     display: flex;
+
+    svg {
+      fill: var(--color-grey);
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    position: relative;
+
+    .dropdown__menu {
+      position: absolute;
+      top: 2rem;
+      right: 0;
+      box-shadow: none;
+    }
   }
 
   &__cta {
@@ -63,9 +78,23 @@
       height: 1.5rem;
       margin-right: 0.5rem;
     }
+  }
+}
 
-    &:not(:last-child) {
-      margin-right: 1rem;
-    }
+.reply__actions {
+  display: flex;
+
+  button:not(:last-child) {
+    margin-right: 1rem;
+  }
+}
+
+.deleteModal {
+  &__content {
+    width: 25%;
+    text-align: center;
+  }
+  &__title {
+    margin-bottom: 2rem;
   }
 }

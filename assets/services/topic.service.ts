@@ -12,7 +12,7 @@ function update(credentials: any): Promise<any> {
 }
 
 function deleteTopic(id: number): Promise<any> {
-  return axios.delete(`${TOPICS_URL}/${id}`);
+  return axios.delete(`${TOPICS_URL}/${id}`).then(response => response);
 }
 
 export default { find, update, deleteTopic };

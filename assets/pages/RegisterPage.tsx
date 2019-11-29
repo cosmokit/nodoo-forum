@@ -69,8 +69,16 @@ const RegisterPage: SFC<Props> = ({ onClose }) => {
   };
 
   useEffect(() => {
-    setOpacity(1);
-    setTransform("translate(-50%, -50%) scale(1)");
+    let isSubscribed = true;
+
+    if (isSubscribed) {
+      setOpacity(1);
+      setTransform("translate(-50%, -50%) scale(1)");
+    }
+
+    return () => {
+      isSubscribed = false;
+    };
   });
 
   return (

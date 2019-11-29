@@ -102,6 +102,13 @@
   &__user-informations {
     margin-right: 20.5rem;
     display: flex;
+    position: relative;
+
+    .dropdown__menu {
+      position: absolute;
+      top: 2.5rem;
+      right: 0;
+    }
 
     &-btn:last-child {
       margin-left: 3rem;

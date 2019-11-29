@@ -35,10 +35,10 @@ const LoginPage: SFC<Props> = ({ onClose }) => {
 
     AuthService.login(credentiels)
       .then(() => {
-        setIsAuthenticated(true);
-        setUserData({ username: credentiels.username });
-        onClose(false);
         setSubmit(false);
+        setUserData({ username: credentiels.username });
+        setIsAuthenticated(true);
+        onClose(false);
       })
       .catch(err => {
         console.error(err.response);
@@ -48,8 +48,16 @@ const LoginPage: SFC<Props> = ({ onClose }) => {
   };
 
   useEffect(() => {
-    setOpacity(1);
-    setTransform("translate(-50%, -50%) scale(1)");
+    let isSubscribed = true;
+
+    if (isSubscribed) {
+      setOpacity(1);
+      setTransform("translate(-50%, -50%) scale(1)");
+    }
+
+    return () => {
+      isSubscribed = false;
+    };
   });
 
   return (

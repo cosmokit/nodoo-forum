@@ -2,16 +2,14 @@ import React, { SFC, useEffect, useState, useContext } from "react";
 import topicService from "../services/topic.service";
 import TopicLoader from "../components/loaders/topic.loader";
 import Pagination, { getPaginatedData } from "../components/Pagination";
-import EditTopicPage from "./EditTopicPage";
 import AuthContext from "../contexts/auth.context";
-import DeleteTopicPage from "./DeleteTopicPage";
+import TopicReplyForm from "../components/TopicReplyForm";
+import TopicReply from "../components/TopicReply";
 
 export interface Props {}
 
 const TopicPage: SFC<Props> = (props: any) => {
   const [topic, setTopic] = useState();
-  const [showEditTopicModal, setShowEditTopicModal] = useState(false);
-  const [showDeleteTopicModal, setShowDeleteTopicModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const { isAuthenticated, userData } = useContext(AuthContext);
@@ -19,13 +17,20 @@ const TopicPage: SFC<Props> = (props: any) => {
   const id: number = parseInt(props.match.params.id);
 
   useEffect(() => {
+    let isSubscribed = true;
     topicService
       .find(id)
       .then((data: any) => {
-        setTopic(data);
-        setLoading(false);
+        if (isSubscribed) {
+          setTopic(data);
+          setLoading(false);
+        }
       })
       .catch(er => console.error);
+
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   const itemsPerPage: number = 5;
@@ -39,101 +44,16 @@ const TopicPage: SFC<Props> = (props: any) => {
     );
   }
 
-  const handleEditBtnClicked = () => {
-    setShowEditTopicModal(true);
-  };
-
-  const handleDeleteBtnClicked = () => {
-    setShowDeleteTopicModal(true);
-  };
-
   return (
     <div className="topicpage">
-      {showEditTopicModal && (
-        <EditTopicPage
-          topic={{
-            id: topic.id,
-            title: topic.title,
-            content: topic.content
-          }}
-          updateTopic={setTopic}
-          onClose={setShowEditTopicModal}
-        />
-      )}
-      {showDeleteTopicModal && (
-        <DeleteTopicPage id={topic.id} onClose={setShowDeleteTopicModal} />
-      )}
       {loading && <TopicLoader />}
       {!loading && topic && (
         <>
           <h1>{topic.title}</h1>
-          <div className="topic-informations">
-            <div className="topic-informations__author">
-              <a href="#">{topic.author.username}</a>
-            </div>
-            <div className="topic-informations__main">
-              <div className="topic-informations__header">
-                <p className="topic-informations__header-date">
-                  Created at 00/00/00
-                </p>
-                {isAuthenticated &&
-                  userData.username === topic.author.username && (
-                    <div className="topic-informations__header-cta">
-                      <button onClick={handleEditBtnClicked}>
-                        <svg>
-                          <use xlinkHref="../img/sprite.svg#icon-pencil" />
-                        </svg>
-                      </button>
-                      <button onClick={handleDeleteBtnClicked}>
-                        <svg>
-                          <use xlinkHref="../img/sprite.svg#icon-trash" />
-                        </svg>
-                      </button>
-                    </div>
-                  )}
-              </div>
-              <p>{topic.content}</p>
-              <div className="topic-informations__cta">
-                <button>
-                  <svg>
-                    <use xlinkHref="../img/sprite.svg#icon-reply" />
-                  </svg>
-                  Reply
-                </button>
-                <button>
-                  <svg>
-                    <use xlinkHref="../img/sprite.svg#icon-report" />
-                  </svg>
-                  Report
-                </button>
-              </div>
-            </div>
-          </div>
+          <TopicReply isTopic={true} data={topic} />
           <hr />
           {paginatedReplies.map((reply: any) => (
-            <div key={reply.id} className="topic-informations">
-              <div className="topic-informations__author">
-                <a href="#">{reply.author.username}</a>
-              </div>{" "}
-              <div className="topic-informations__main">
-                <p className="topic-informations__date">Created at 00/00/00</p>
-                <p>{reply.content}</p>
-                <div className="topic-informations__cta">
-                  <button>
-                    <svg>
-                      <use xlinkHref="../img/sprite.svg#icon-reply" />
-                    </svg>
-                    Reply
-                  </button>
-                  <button>
-                    <svg>
-                      <use xlinkHref="../img/sprite.svg#icon-report" />
-                    </svg>
-                    Report
-                  </button>
-                </div>
-              </div>
-            </div>
+            <TopicReply isTopic={false} key={reply.id} data={reply} />
           ))}
           <Pagination
             itemsPerPage={itemsPerPage}
@@ -142,10 +62,7 @@ const TopicPage: SFC<Props> = (props: any) => {
             onPageChanged={setCurrentPage}
           />
           {(isAuthenticated && (
-            <>
-              <hr />
-              Reply form here
-            </>
+            <TopicReplyForm isEditing={false} topic_id={topic.id} />
           )) || (
             <p className="u-text-center u-margin-top-sm">
               You must be logged in to write a reply.

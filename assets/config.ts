@@ -9,3 +9,5 @@ export const CATEGORIES_URL: string = `${API_URL}/categories`;
 export const SUBCATEGORIES_URL: string = `${API_URL}/subcategories`;
 
 export const TOPICS_URL: string = `${API_URL}/topics`;
+
+export const TOPIC_REPLIES_URL: string = `${API_URL}/topic_replies`;

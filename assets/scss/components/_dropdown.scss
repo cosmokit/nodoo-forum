@@ -1,6 +1,5 @@
 .dropdown {
   &__btn {
-    position: relative;
     display: flex;
     align-items: center;
     border: none;
@@ -18,41 +17,33 @@
   }
 
   &__menu {
-    position: absolute;
-    top: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
     border: 2px solid var(--color-grey-light-2);
     border-radius: 7px;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: -1rem;
-      background-color: black;
-      width: 0px;
-      height: 0px;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      z-index: 100000;
-    }
   }
 
   &__item {
+    width: 100%;
     padding: 1.5rem 4rem;
     text-decoration: none;
-    color: var(--color-dark);
+    color: var(--color-grey);
     border: none;
     background-color: var(--color-white);
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
     align-items: center;
+    justify-content: center;
     svg {
+      fill: var(--color-grey);
       width: 1.5rem;
       height: 1.5rem;
+    }
+
+    &:focus {
+      outline: none;
     }
 
     &:hover {
@@ -62,7 +53,5 @@
     &:not(:last-child) {
       border-bottom: 1px solid var(--color-grey-light);
     }
-
-    font-weight: 600;
   }
 }

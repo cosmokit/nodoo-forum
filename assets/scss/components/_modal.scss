@@ -28,6 +28,11 @@
     transition: all 0.5s 0.2s;
   }
 
+  &__cta {
+    display: flex;
+    justify-content: space-around;
+  }
+
   &__title {
     text-align: center;
   }

@@ -133,13 +133,7 @@ const Header: SFC<Props> = () => {
               </button>
               {showDropdown && (
                 <div className="dropdown__menu">
-                  <NavLink to="#" className="dropdown__item">
-                    My profile
-                  </NavLink>
-                  <button
-                    onClick={handleLogout}
-                    className="dropdown__item u-text-danger"
-                  >
+                  <button onClick={handleLogout} className="dropdown__item">
                     <svg>
                       <use xlinkHref="../img/sprite.svg#icon-sign-out" />
                     </svg>

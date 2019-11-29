@@ -41,6 +41,7 @@ function getUserData(): any {
   const token: string | null = window.localStorage.getItem("authToken");
   if (token) {
     const { exp, username, roles } = jwtDecode(token);
+    console.log(jwtDecode(token));
     if (exp > new Date().getTime() / 1000) {
       return { username, roles };
     }

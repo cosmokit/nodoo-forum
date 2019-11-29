@@ -10,7 +10,7 @@ const SubcategoryLoader: React.SFC<Props> = () => {
       width={400}
       speed={2}
       primaryColor="#f3f3f3"
-      secondaryColor="#c0c0c0"
+      secondaryColor="#f3f3f3"
     >
       <rect x="6" y="10" rx="4" ry="4" width="209" height="21" />
       <rect x="7" y="45" rx="3" ry="3" width="193" height="9" />
