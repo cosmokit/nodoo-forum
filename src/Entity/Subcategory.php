@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -44,6 +45,7 @@ class Subcategory
      * @Assert\Length(min=4, max=60)
      * @Assert\NotBlank
      * @Groups({"subcategories_read", "categories_read", "topics_read", "categories_subcategories_subresources", "users_topics_subresources"})
+     * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
 

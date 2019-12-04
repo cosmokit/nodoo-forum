@@ -10,38 +10,36 @@ export interface Props {}
 
 const TopicPage: SFC<Props> = (props: any) => {
   const [topic, setTopic] = useState();
+  const [topicTitle, setTopicTtitle] = useState();
+  const [replies, setReplies] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const { isAuthenticated, userData } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
   const slug: string = props.match.params.slug;
   const id: number = parseInt(props.match.params.id);
 
+  const addReply = (reply: {}) => {
+    setReplies([...replies, reply]);
+  };
+
   useEffect(() => {
-    let isSubscribed = true;
     topicService
       .find(id)
       .then((data: any) => {
-        if (isSubscribed) {
-          setTopic(data);
-          setLoading(false);
-        }
+        console.log(data);
+        setTopic(data);
+        setTopicTtitle(data.title);
+        setReplies(data.replies);
+        setLoading(false);
       })
       .catch(er => console.error);
-
-    return () => {
-      isSubscribed = false;
-    };
   }, []);
 
-  const itemsPerPage: number = 5;
+  const itemsPerPage: number = 20;
   let paginatedReplies: Array<Object> = [];
 
-  if (topic !== undefined) {
-    paginatedReplies = getPaginatedData(
-      topic.replies,
-      itemsPerPage,
-      currentPage
-    );
+  if (topic !== undefined && replies !== undefined) {
+    paginatedReplies = getPaginatedData(replies, itemsPerPage, currentPage);
   }
 
   return (
@@ -49,11 +47,22 @@ const TopicPage: SFC<Props> = (props: any) => {
       {loading && <TopicLoader />}
       {!loading && topic && (
         <>
-          <h1>{topic.title}</h1>
-          <TopicReply isTopic={true} data={topic} />
+          <h1>{topicTitle}</h1>
+          <TopicReply
+            isTopic={true}
+            updateTitle={setTopicTtitle}
+            data={topic}
+            history={props.history}
+          />
           <hr />
           {paginatedReplies.map((reply: any) => (
-            <TopicReply isTopic={false} key={reply.id} data={reply} />
+            <TopicReply
+              isTopic={false}
+              updateTitle={() => {}}
+              key={reply.id}
+              data={reply}
+              history={props.history}
+            />
           ))}
           <Pagination
             itemsPerPage={itemsPerPage}
@@ -61,7 +70,9 @@ const TopicPage: SFC<Props> = (props: any) => {
             currentPage={currentPage}
             onPageChanged={setCurrentPage}
           />
-          {(isAuthenticated && <TopicReplyForm topic_id={topic.id} />) || (
+          {(isAuthenticated && (
+            <TopicReplyForm topic_id={topic.id} addReply={addReply} />
+          )) || (
             <p className="u-text-center u-margin-top-sm">
               You must be logged in to write a reply.
             </p>

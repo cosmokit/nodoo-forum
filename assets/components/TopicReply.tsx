@@ -7,9 +7,16 @@ import DeleteTopicModal from "./DeleteTopicModal";
 export interface TopicReplyProps {
   data: any;
   isTopic: boolean;
+  updateTitle: (value: string) => void;
+  history: any;
 }
 
-const TopicReply: SFC<TopicReplyProps> = ({ data, isTopic }) => {
+const TopicReply: SFC<TopicReplyProps> = ({
+  data,
+  isTopic,
+  updateTitle,
+  history
+}) => {
   const { isAuthenticated, userData } = useContext(authContext);
   const [showEditForm, setShowEditForm] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -35,14 +42,18 @@ const TopicReply: SFC<TopicReplyProps> = ({ data, isTopic }) => {
     event.preventDefault();
     setIsSubmit(true);
 
-    credentials.author = credentials.author["@id"];
     if (isTopic) {
-      credentials.subcategory = credentials.subcategory["@id"];
       topicService
-        .update(credentials)
-        .then(() => {
+        .update({
+          id: credentials.id,
+          title: credentials.title,
+          content: credentials.content
+        })
+        .then(response => {
           setIsSubmit(false);
           setShowEditForm(false);
+          updateTitle(response.data.title);
+          history.replace(`/topics/${response.data.slug}--${response.data.id}`);
         })
         .catch(err => {
           console.error(err);
@@ -50,7 +61,7 @@ const TopicReply: SFC<TopicReplyProps> = ({ data, isTopic }) => {
         });
     } else {
       topicReplyService
-        .update(credentials)
+        .update({ id: credentials.id, content: credentials.content })
         .then(() => {
           setIsSubmit(false);
           setShowEditForm(false);
@@ -78,6 +89,7 @@ const TopicReply: SFC<TopicReplyProps> = ({ data, isTopic }) => {
         isTopic={isTopic}
         id={credentials.id}
         onClose={setShowDeleteModal}
+        history={history}
       />
     )) ||
     (showEditForm && (

@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource(
@@ -62,12 +63,14 @@ class Topic
      * @ORM\Column(type="datetime")
      * @Assert\DateTime
      * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
@@ -88,6 +91,7 @@ class Topic
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources"})
+     * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
 
@@ -100,7 +104,6 @@ class Topic
 
     public function __construct()
     {
-        $this->created_at = new \Datetime();
         $this->replies = new ArrayCollection();
     }
 

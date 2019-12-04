@@ -16,6 +16,9 @@
             "./src/Entity/.gitignore"
         ]
     },
+    "behat/transliterator": {
+        "version": "v1.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -104,6 +107,9 @@
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.38"
+    },
     "hautelook/alice-bundle": {
         "version": "2.1",
         "recipe": {
@@ -182,6 +188,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
+    "php": {
+        "version": "7.3"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.0.0"
     },
@@ -214,6 +223,18 @@
     },
     "sebastian/recursion-context": {
         "version": "3.0.0"
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.2",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
+        },
+        "files": [
+            "./config/packages/stof_doctrine_extensions.yaml"
+        ]
     },
     "symfony/apache-pack": {
         "version": "1.0",

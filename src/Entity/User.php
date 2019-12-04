@@ -14,6 +14,7 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource(
@@ -78,11 +79,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
@@ -102,7 +105,6 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->created_at = new \Datetime();
         $this->topics = new ArrayCollection();
         $this->topicReplies = new ArrayCollection();
     }

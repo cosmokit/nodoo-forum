@@ -6,9 +6,10 @@ export interface Props {
   isTopic: boolean;
   id: number;
   onClose: (value: boolean) => void;
+  history: any;
 }
 
-const DeleteTopicModal: SFC<Props> = ({ isTopic, id, onClose }) => {
+const DeleteTopicModal: SFC<Props> = ({ isTopic, id, onClose, history }) => {
   const [opacity, setOpacity] = useState(0);
   const [transform, setTransform] = useState(
     "translate(-50%, -50%) scale(0.25)"
@@ -26,8 +27,10 @@ const DeleteTopicModal: SFC<Props> = ({ isTopic, id, onClose }) => {
       topicService
         .deleteTopic(id)
         .then(() => {
+          console.log("TOPIC DELETED");
           setIsSubmit(false);
           handleClose();
+          history.replace("/");
         })
         .catch(err => {
           console.error(err);
@@ -37,6 +40,7 @@ const DeleteTopicModal: SFC<Props> = ({ isTopic, id, onClose }) => {
       topicReplyService
         .deleteReply(id)
         .then(() => {
+          console.log("REPLY DELETED");
           setIsSubmit(false);
           handleClose();
         })

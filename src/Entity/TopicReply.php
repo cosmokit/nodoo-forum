@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource(
@@ -44,12 +45,14 @@ class TopicReply
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
@@ -66,11 +69,6 @@ class TopicReply
      * @Groups({"topicsReplies_read", "users_read", "users_topicsReplies_subresources"})
      */
     private $topic;
-
-    public function __construct()
-    {
-        $this->created_at = new \Datetime();
-    }
 
     public function getId(): ?int
     {

@@ -4,9 +4,10 @@ import authContext from "../contexts/auth.context";
 
 export interface TopicReplyFormProps {
   topic_id: number;
+  addReply: (value: any) => void;
 }
 
-const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id }) => {
+const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id, addReply }) => {
   const [content, setContent] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
   const { userData } = useContext(authContext);
@@ -15,7 +16,8 @@ const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id }) => {
     setContent(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
     setIsSubmit(true);
 
     const credentials = {
@@ -27,10 +29,20 @@ const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id }) => {
     topicReplyService
       .create(credentials)
       .then(response => {
-        console.log(response);
+        const data = {
+          ["@id"]: response.data["@id"],
+          ["@type"]: response.data["@type"],
+          id: response.data.id,
+          content: response.data.content,
+          author: response.data.author
+        };
+        addReply(data);
+        setContent("");
+        setIsSubmit(false);
       })
       .catch(err => {
         console.error(err);
+        setIsSubmit(false);
       });
   };
 

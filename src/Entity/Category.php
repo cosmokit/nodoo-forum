@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource(
@@ -46,6 +47,7 @@ class Category
      * @Assert\Length(min=3, max=50)
      * @Assert\NotBlank
      * @Groups({"categories_read", "subcategories_read"})
+     * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
 
