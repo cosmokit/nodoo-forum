@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AuthService from "./services/auth.service";
 import AuthContext from "./contexts/auth.context";
+import NotFoundPage from "./pages/NotFoundPage";
 
 AuthService.load();
 
@@ -29,6 +30,7 @@ const App = () => {
               <Route path="/topics/:slug--:id" component={TopicPage} />
               <Route path="/:slug--:id" component={SubcategoryPage} />
               <Route exact path="/" component={HomePage} />
+              <Route path="*" component={NotFoundPage} />
             </Switch>
           </main>
 

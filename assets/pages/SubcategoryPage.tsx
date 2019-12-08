@@ -4,23 +4,29 @@ import Pagination, { getPaginatedData } from "../components/Pagination";
 import SubcategoryLoader from "../components/loaders/subcategory.loader";
 import { NavLink } from "react-router-dom";
 
-export interface Props {}
+export interface Props {
+  match: any;
+  history: any;
+}
 
-const SubcategoryPage: SFC<Props> = (props: PropsWithChildren<any>) => {
+const SubcategoryPage: SFC<Props> = ({ match, history }) => {
   const [subcategory, setSubcategory] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const id: number = parseInt(props.match.params.id);
-  const slug: string = props.match.params.slug;
+  const id: number = parseInt(match.params.id);
+  const slug: string = match.params.slug;
 
   useEffect(() => {
     SubcategoryService.find(id)
       .then((data: any) => {
+        if (slug !== data.slug) {
+          history.replace("/");
+        }
         setSubcategory(data);
         setLoading(false);
       })
       .catch(err => {
-        console.error(err);
+        history.replace("/");
       });
   }, []);
 
@@ -67,7 +73,7 @@ const SubcategoryPage: SFC<Props> = (props: PropsWithChildren<any>) => {
                   </td>
                   <td className="u-text-center">20/10/2011</td>
                   <td className="u-text-center">...</td>
-                  <td className="u-text-center">0</td>
+                  <td className="u-text-center">{topic.replies.length}</td>
                 </tr>
               ))}
             </tbody>

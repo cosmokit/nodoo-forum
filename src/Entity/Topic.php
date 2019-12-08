@@ -98,7 +98,7 @@ class Topic
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\TopicReply", mappedBy="topic", orphanRemoval=true)
      * @ApiSubresource
-     * @Groups({"topics_read"})
+     * @Groups({"topics_read", "subcategories_read"})
      */
     private $replies;
 

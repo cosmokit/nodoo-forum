@@ -8,13 +8,15 @@ export interface TopicReplyProps {
   data: any;
   isTopic: boolean;
   updateTitle: (value: string) => void;
+  deleteReply: (value: number) => void;
   history: any;
 }
 
-const TopicReply: SFC<TopicReplyProps> = ({
+const TopicReply: SFC<any> = ({
   data,
   isTopic,
   updateTitle,
+  deleteReply,
   history
 }) => {
   const { isAuthenticated, userData } = useContext(authContext);
@@ -90,6 +92,7 @@ const TopicReply: SFC<TopicReplyProps> = ({
         id={credentials.id}
         onClose={setShowDeleteModal}
         history={history}
+        deleteReply={deleteReply}
       />
     )) ||
     (showEditForm && (

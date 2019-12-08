@@ -55,6 +55,7 @@ const HomePage: SFC<Props> = () => {
             </div>
           </Fragment>
         ))}
+      {categories.length == 0 && !loading && <p>No categories founds.</p>}
     </div>
   );
 };

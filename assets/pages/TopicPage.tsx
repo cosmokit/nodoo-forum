@@ -6,33 +6,48 @@ import AuthContext from "../contexts/auth.context";
 import TopicReplyForm from "../components/TopicReplyForm";
 import TopicReply from "../components/TopicReply";
 
-export interface Props {}
+export interface Props {
+  match: any;
+  history: any;
+}
 
-const TopicPage: SFC<Props> = (props: any) => {
+const TopicPage: SFC<Props> = ({ match, history }) => {
   const [topic, setTopic] = useState();
   const [topicTitle, setTopicTtitle] = useState();
   const [replies, setReplies] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const { isAuthenticated } = useContext(AuthContext);
-  const slug: string = props.match.params.slug;
-  const id: number = parseInt(props.match.params.id);
+  const slug: string = match.params.slug;
+  const id: number = parseInt(match.params.id);
 
   const addReply = (reply: {}) => {
     setReplies([...replies, reply]);
+  };
+
+  const deleteReply = (id: number) => {
+    console.log("DELETE REPLY FUNCTION CALLED!!!");
+    const updatedReplies = { ...replies };
+    const index = updatedReplies.findIndex((reply: any) => reply.id === id);
+    updatedReplies.splice(index, 1);
+    setReplies({ updatedReplies });
   };
 
   useEffect(() => {
     topicService
       .find(id)
       .then((data: any) => {
-        console.log(data);
+        if (slug !== data.slug) {
+          history.replace("/");
+        }
         setTopic(data);
         setTopicTtitle(data.title);
         setReplies(data.replies);
         setLoading(false);
       })
-      .catch(er => console.error);
+      .catch(err => {
+        history.replace("/");
+      });
   }, []);
 
   const itemsPerPage: number = 20;
@@ -52,7 +67,8 @@ const TopicPage: SFC<Props> = (props: any) => {
             isTopic={true}
             updateTitle={setTopicTtitle}
             data={topic}
-            history={props.history}
+            history={history}
+            deleteReply={() => {}}
           />
           <hr />
           {paginatedReplies.map((reply: any) => (
@@ -61,7 +77,8 @@ const TopicPage: SFC<Props> = (props: any) => {
               updateTitle={() => {}}
               key={reply.id}
               data={reply}
-              history={props.history}
+              history={history}
+              deleteReply={deleteReply}
             />
           ))}
           <Pagination
