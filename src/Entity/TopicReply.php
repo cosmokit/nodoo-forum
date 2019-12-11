@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ApiResource(
  *         normalizationContext={"groups"={"topicsReplies_read"}},
+ *         attributes={"pagination_enabled"=true, "pagination_items_per_page"=2},
  *         itemOperations={
  *            "get",
  *            "put"={"security"="is_granted('ROLE_ADMIN') or object.getAuthor() == user"},
@@ -30,7 +31,7 @@ class TopicReply
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
+     * @Groups({"topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
      */
     private $id;
 
@@ -38,28 +39,28 @@ class TopicReply
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(min=2, max=10000)
-     * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
+     * @Groups({"topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
+     * @Groups({"topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
      * @Gedmo\Timestampable(on="create")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"topics_read", "topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
+     * @Groups({"topicsReplies_read", "users_read", "users_topicsReplies_subresources", "topics_replies_subresources"})
      * @Gedmo\Timestampable(on="update")
      */
-    private $updated_at;
+    private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="topicReplies")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"topics_read", "topicsReplies_read", "topics_replies_subresources"})
+     * @Groups({"topicsReplies_read", "topics_replies_subresources"})
      */
     private $author;
 
@@ -89,24 +90,24 @@ class TopicReply
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

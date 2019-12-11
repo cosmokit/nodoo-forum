@@ -9,6 +9,6 @@
 .alert-danger {
   @extend %alert;
   color: rgba(124, 37, 37, 0.452);
-  border-top: 2px solid rgba(255, 94, 94, 0.89);
+  border-top: 2px solid rgba(124, 37, 37, 0.452);
   background-color: rgba(255, 231, 231, 0.952);
 }

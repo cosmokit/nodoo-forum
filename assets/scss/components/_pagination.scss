@@ -12,6 +12,7 @@
     background-color: var(--color-white);
     display: flex;
     align-items: center;
+    box-shadow: 0 1rem 6rem rgba(0, 0, 0, 0.1);
 
     &--active {
       background-color: var(--color-primary);
@@ -30,7 +31,7 @@
     color: var(--color-primary);
     border: none;
     background-color: transparent;
-    font-size: 1.4rem;
+    font-size: var(--default-font-size);
     cursor: pointer;
     &:focus {
       outline: none;

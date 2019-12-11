@@ -68,13 +68,4 @@ const Pagination: SFC<Props> = ({
   );
 };
 
-export const getPaginatedData = (
-  items: any,
-  itemsPerPage: number,
-  currentPage: number
-): Array<Object> => {
-  const start: number = currentPage * itemsPerPage - itemsPerPage;
-  return items.slice(start, start + itemsPerPage);
-};
-
 export default Pagination;

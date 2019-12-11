@@ -42,7 +42,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
+     * @Groups({"users_read", "topics_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
      */
     private $id;
 
@@ -50,7 +50,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Length(min=4, max=30)
      * @Assert\NotBlank
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
+     * @Groups({"users_read", "topics_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
      */
     private $username;
 
@@ -64,7 +64,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
+     * @Groups({"users_read", "topics_read", "topicsReplies_read", "topics_replies_subresources"})
      */
     private $roles = [];
 
@@ -78,16 +78,16 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"users_read", "topics_read", "subcategories_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
+     * @Groups({"users_read", "topics_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
      * @Gedmo\Timestampable(on="create")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="update")
      */
-    private $updated_at;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Topic", mappedBy="author", orphanRemoval=true)
@@ -196,24 +196,24 @@ class User implements UserInterface
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

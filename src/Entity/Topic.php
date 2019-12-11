@@ -17,6 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ApiResource(
  *      normalizationContext={"groups"={"topics_read"}},
+ *      attributes={"pagination_enabled"=true, "pagination_items_per_page"=12},
  *      itemOperations={
  *         "get",
  *         "put"={"security"="is_granted('ROLE_ADMIN') or object.getAuthor() == user"},
@@ -39,7 +40,7 @@ class Topic
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
+     * @Groups({"topics_read", "users_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      */
     private $id;
 
@@ -47,7 +48,7 @@ class Topic
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=2, max=80)
      * @Assert\NotBlank
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
+     * @Groups({"topics_read", "users_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      */
     private $title;
 
@@ -55,24 +56,24 @@ class Topic
      * @ORM\Column(type="text")
      * @Assert\Length(min=2, max=10000)
      * @Assert\NotBlank
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
+     * @Groups({"topics_read", "users_read", "topicsReplies_read", "users_topics_subresources"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\DateTime
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
+     * @Groups({"topics_read", "users_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      * @Gedmo\Timestampable(on="create")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
+     * @Groups({"topics_read", "users_read", "topicsReplies_read", "users_topics_subresources", "subcategories_topics_subresources"})
      * @Gedmo\Timestampable(on="update")
      */
-    private $updated_at;
+    private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Subcategory", inversedBy="topics")
@@ -84,13 +85,13 @@ class Topic
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="topics")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"topics_read", "subcategories_read", "subcategories_topics_subresources"})
+     * @Groups({"topics_read", "subcategories_topics_subresources"})
      */
     private $author;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"topics_read", "users_read", "subcategories_read", "topicsReplies_read", "users_topics_subresources"})
+     * @Groups({"topics_read", "users_read", "topicsReplies_read", "subcategories_topics_subresources", "users_topics_subresources"})
      * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
@@ -98,7 +99,7 @@ class Topic
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\TopicReply", mappedBy="topic", orphanRemoval=true)
      * @ApiSubresource
-     * @Groups({"topics_read", "subcategories_read"})
+     * @Groups({"topics_read", "subcategories_topics_subresources"})
      */
     private $replies;
 
@@ -138,24 +139,24 @@ class Topic
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

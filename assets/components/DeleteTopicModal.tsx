@@ -34,7 +34,6 @@ const DeleteTopicModal: SFC<Props> = ({
       topicService
         .deleteTopic(id)
         .then(() => {
-          console.log("TOPIC DELETED");
           setIsSubmit(false);
           handleClose();
           history.replace("/");

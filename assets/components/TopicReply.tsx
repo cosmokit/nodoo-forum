@@ -159,7 +159,9 @@ const TopicReply: SFC<any> = ({
         <div className="topic-informations__main">
           <div className="topic-informations__header">
             <p className="topic-informations__header-date">
-              Created at 00/00/00
+              Created at {credentials.createdAt}{" "}
+              {credentials.updatedAt !== credentials.createdAt &&
+                `-- Last update ${credentials.updatedAt}`}
             </p>
             {isAuthenticated &&
               userData.username === credentials.author.username && (
@@ -201,14 +203,7 @@ const TopicReply: SFC<any> = ({
               )}
           </div>
           <p>{credentials.content}</p>
-          <div className="topic-informations__cta">
-            <button>
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-report" />
-              </svg>
-              Report
-            </button>
-          </div>
+          <div className="topic-informations__cta"></div>
         </div>
       </div>
     )
