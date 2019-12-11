@@ -4,6 +4,7 @@ import Pagination from "../components/Pagination";
 import SubcategoryLoader from "../components/loaders/subcategory.loader";
 import { NavLink } from "react-router-dom";
 import authContext from "../contexts/auth.context";
+import moment from "moment";
 
 export interface Props {
   match: any;
@@ -80,7 +81,7 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
             <tr>
               <th>Title</th>
               <th>Author</th>
-              <th>Created at</th>
+              <th>Creation date</th>
               <th>Last update</th>
               <th>Replies</th>
             </tr>
@@ -99,9 +100,13 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
                 <td className="u-text-center">
                   <a href="#">{topic.author.username}</a>
                 </td>
-                <td className="u-text-center">{topic.createdAt}</td>
                 <td className="u-text-center">
-                  {topic.updatedAt !== topic.createdAt && topic.updatedAt}
+                  {moment(topic.createdAt).calendar()}
+                </td>
+                <td className="u-text-center">
+                  {(topic.updatedAt !== topic.createdAt &&
+                    moment(topic.updatedAt).fromNow()) ||
+                    "..."}
                 </td>
                 <td className="u-text-center">{topic.replies.length}</td>
               </tr>

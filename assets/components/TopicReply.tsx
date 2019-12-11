@@ -3,6 +3,7 @@ import authContext from "../contexts/auth.context";
 import topicReplyService from "../services/topicReply.service";
 import topicService from "../services/topic.service";
 import DeleteTopicModal from "./DeleteTopicModal";
+import moment from "moment";
 
 export interface TopicReplyProps {
   data: any;
@@ -158,9 +159,9 @@ const TopicReply: SFC<any> = ({
         <div className="topic-informations__main">
           <div className="topic-informations__header">
             <p className="topic-informations__header-date">
-              Created at {credentials.createdAt}{" "}
+              Created {moment(credentials.createdAt).fromNow()}
               {credentials.updatedAt !== credentials.createdAt &&
-                `-- Last update ${credentials.updatedAt}`}
+                `-- Last updated ${moment(credentials.updatedAt).fromNow()}`}
             </p>
             {isAuthenticated &&
               userData.username === credentials.author.username && (
