@@ -64,8 +64,7 @@ const Footer: SFC<Props> = () => {
           <h4 className="footer__heading">Language</h4>
           <div className="footer__links">
             <a href="#" className="footer__link">
-              <img src="../img/en.svg" alt="United Kingdom Flag" />
-              English (UK)
+              English (US)
             </a>
           </div>
         </div>

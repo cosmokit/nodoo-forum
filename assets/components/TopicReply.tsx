@@ -77,8 +77,7 @@ const TopicReply: SFC<any> = ({
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
-    const updatedCredentials = { ...credentials, [name]: value };
-    setCredentials(updatedCredentials);
+    setCredentials({ ...credentials, [name]: value });
   };
 
   const handleClose = () => {

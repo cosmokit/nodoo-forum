@@ -1,3 +1,8 @@
 .subcategoryPage {
   grid-column: main-start / sidebar-end;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
 }

@@ -7,10 +7,14 @@ function find(id: number): Promise<any> {
     .then(response => response.data);
 }
 
+function findAll(): Promise<any> {
+  return axios.get(SUBCATEGORIES_URL).then(response => response.data);
+}
+
 function findTopicsPaginated(id: number, currentPage: number): Promise<any> {
   return axios
     .get(`${SUBCATEGORIES_URL}/${id}/topics?page=${currentPage}`)
     .then(response => response.data);
 }
 
-export default { find, findTopicsPaginated };
+export default { find, findAll, findTopicsPaginated };

@@ -1,8 +1,9 @@
-import React, { SFC, useEffect, useState } from "react";
+import React, { SFC, useEffect, useState, useContext } from "react";
 import SubcategoryService from "../services/subcategory.service";
 import Pagination from "../components/Pagination";
 import SubcategoryLoader from "../components/loaders/subcategory.loader";
 import { NavLink } from "react-router-dom";
+import authContext from "../contexts/auth.context";
 
 export interface Props {
   match: any;
@@ -18,6 +19,7 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
   const [currentPage, setCurrentPage] = useState(
     parseInt(location.search.substr(6)) || 1
   );
+  const { isAuthenticated } = useContext(authContext);
 
   const id: number = parseInt(match.params.id);
   const slug: string = match.params.slug;
@@ -57,8 +59,21 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
   return (
     <div className="subcategoryPage">
       {loading && <SubcategoryLoader />}
-      {!loading && subcategory && <h1>{subcategory.name}</h1>}
-
+      {!loading && subcategory && (
+        <div className="subcategoryPage__header">
+          <h1>{subcategory.name}</h1>
+          {isAuthenticated && (
+            <NavLink to="/topics/new">
+              <button className="btn btn--small btn--square">
+                <svg>
+                  <use xlinkHref="../img/sprite.svg#icon-plus" />
+                </svg>
+                New topic
+              </button>
+            </NavLink>
+          )}
+        </div>
+      )}
       {!loading && topics && (
         <table className="table">
           <thead>
