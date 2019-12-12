@@ -29,12 +29,11 @@ const TopicPage: SFC<Props> = ({ match, history }) => {
     setReplies([...replies, reply]);
   };
 
-  // Not working
   const deleteReply = (id: number) => {
-    const updatedReplies = { ...replies };
+    const updatedReplies: Array<string> = [...replies];
     const index = updatedReplies.findIndex((reply: any) => reply.id === id);
     updatedReplies.splice(index, 1);
-    setReplies({ updatedReplies });
+    setReplies(updatedReplies);
   };
 
   const onPageChanged = (page: number) => {

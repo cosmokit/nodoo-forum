@@ -46,10 +46,9 @@ const DeleteTopicModal: SFC<Props> = ({
       topicReplyService
         .deleteReply(id)
         .then(() => {
-          console.log("REPLY DELETED");
-          deleteReply(id);
           setIsSubmit(false);
           handleClose();
+          deleteReply(id);
         })
         .catch(err => {
           console.error(err);

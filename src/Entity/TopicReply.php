@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ApiResource(
  *         normalizationContext={"groups"={"topicsReplies_read"}},
- *         attributes={"pagination_enabled"=true, "pagination_items_per_page"=2},
+ *         attributes={"pagination_enabled"=true, "pagination_items_per_page"=20},
  *         itemOperations={
  *            "get",
  *            "put"={"security"="is_granted('ROLE_ADMIN') or object.getAuthor() == user"},

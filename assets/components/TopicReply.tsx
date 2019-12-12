@@ -81,22 +81,23 @@ const TopicReply: SFC<any> = ({
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleClose = () => {
+  const handleClose = (event: any) => {
+    event.preventDefault();
     setShowEditForm(false);
   };
 
   return (
-    (showDeleteModal && (
-      <DeleteTopicModal
-        isTopic={isTopic}
-        id={credentials.id}
-        onClose={setShowDeleteModal}
-        history={history}
-        deleteReply={deleteReply}
-      />
-    )) ||
-    (showEditForm && (
-      <>
+    <>
+      {showDeleteModal && (
+        <DeleteTopicModal
+          isTopic={isTopic}
+          id={credentials.id}
+          onClose={setShowDeleteModal}
+          history={history}
+          deleteReply={deleteReply}
+        />
+      )}
+      {(showEditForm && (
         <form onSubmit={handleSubmit}>
           {isTopic && (
             <div className="form-group">
@@ -150,63 +151,63 @@ const TopicReply: SFC<any> = ({
             </button>
           </div>
         </form>
-      </>
-    )) || (
-      <div className="topic-informations">
-        <div className="topic-informations__author">
-          <a href="#">{credentials.author.username}</a>
-        </div>
-        <div className="topic-informations__main">
-          <div className="topic-informations__header">
-            <p className="topic-informations__header-date">
-              Created {moment(credentials.createdAt).fromNow()}
-              {credentials.updatedAt !== credentials.createdAt &&
-                `-- Last updated ${moment(credentials.updatedAt).fromNow()}`}
-            </p>
-            {isAuthenticated &&
-              userData.username === credentials.author.username && (
-                <div className="topic-informations__header-cta">
-                  <button onClick={handleDropdown} className="dropdown__btn">
-                    {(!showDropdown && (
-                      <svg>
-                        <use xlinkHref="../img/sprite.svg#icon-chevron-down" />
-                      </svg>
-                    )) || (
-                      <svg>
-                        <use xlinkHref="../img/sprite.svg#icon-chevron-up" />
-                      </svg>
-                    )}
-                  </button>
-                  {showDropdown && (
-                    <div className="dropdown__menu">
-                      <button
-                        className="dropdown__item"
-                        onClick={handleEditBtn}
-                      >
-                        <svg>
-                          <use xlinkHref="../img/sprite.svg#icon-pencil" />
-                        </svg>
-                        Edit
-                      </button>
-                      <button
-                        className="dropdown__item"
-                        onClick={handleDeleteBtn}
-                      >
-                        <svg>
-                          <use xlinkHref="../img/sprite.svg#icon-trash" />
-                        </svg>
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
+      )) || (
+        <div className="topic-informations">
+          <div className="topic-informations__author">
+            <a href="#">{credentials.author.username}</a>
           </div>
-          <p>{credentials.content}</p>
-          <div className="topic-informations__cta"></div>
+          <div className="topic-informations__main">
+            <div className="topic-informations__header">
+              <p className="topic-informations__header-date">
+                Created {moment(credentials.createdAt).fromNow()}
+                {credentials.updatedAt !== credentials.createdAt &&
+                  `-- Last updated ${moment(credentials.updatedAt).fromNow()}`}
+              </p>
+              {isAuthenticated &&
+                userData.username === credentials.author.username && (
+                  <div className="topic-informations__header-cta">
+                    <button onClick={handleDropdown} className="dropdown__btn">
+                      {(!showDropdown && (
+                        <svg>
+                          <use xlinkHref="../img/sprite.svg#icon-chevron-down" />
+                        </svg>
+                      )) || (
+                        <svg>
+                          <use xlinkHref="../img/sprite.svg#icon-chevron-up" />
+                        </svg>
+                      )}
+                    </button>
+                    {showDropdown && (
+                      <div className="dropdown__menu">
+                        <button
+                          className="dropdown__item"
+                          onClick={handleEditBtn}
+                        >
+                          <svg>
+                            <use xlinkHref="../img/sprite.svg#icon-pencil" />
+                          </svg>
+                          Edit
+                        </button>
+                        <button
+                          className="dropdown__item"
+                          onClick={handleDeleteBtn}
+                        >
+                          <svg>
+                            <use xlinkHref="../img/sprite.svg#icon-trash" />
+                          </svg>
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+            </div>
+            <p>{credentials.content}</p>
+            <div className="topic-informations__cta"></div>
+          </div>
         </div>
-      </div>
-    )
+      )}
+    </>
   );
 };
 
