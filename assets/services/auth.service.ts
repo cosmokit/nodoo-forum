@@ -42,9 +42,9 @@ function isAuthenticated(): boolean {
 function getUserData(): any {
   const token: string | null = window.localStorage.getItem("authToken");
   if (token) {
-    const { exp, id, username, roles } = jwtDecode(token);
+    const { exp, id, username, roles, avatar } = jwtDecode(token);
     if (exp > new Date().getTime() / 1000) {
-      return { id, username, roles };
+      return { id, username, roles, avatar };
     }
   }
 }

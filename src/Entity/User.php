@@ -2,19 +2,22 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Annotation\ApiFilter;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ApiResource(
@@ -35,6 +38,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="users")
  * @UniqueEntity(fields={"email"}, message="This email address is already used.")
  * @UniqueEntity(fields={"username"}, message="This username is already used")
+ * @Vich\Uploadable()
  */
 class User implements UserInterface
 {
@@ -90,6 +94,19 @@ class User implements UserInterface
     private $updatedAt;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"users_read", "topics_read", "topicsReplies_read", "topics_replies_subresources", "subcategories_topics_subresources"})
+     */
+    private $avatar;
+
+    /**
+     * @var File|null
+     * @Assert\Image()
+     * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatar")
+     */
+    private $imageFile;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Topic", mappedBy="author", orphanRemoval=true)
      * @ApiSubresource
      * @Groups({"users_read"})
@@ -107,6 +124,7 @@ class User implements UserInterface
     {
         $this->topics = new ArrayCollection();
         $this->topicReplies = new ArrayCollection();
+        $this->setAvatar("default.png");
     }
 
     public function getId(): ?int
@@ -215,6 +233,45 @@ class User implements UserInterface
     {
         $this->updatedAt = $updatedAt;
 
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string|null $avatar
+     * @return User
+     */
+    public function setAvatar(?string $avatar): User
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     * @return User
+     */
+    public function setImageFile(?File $imageFile): User
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
         return $this;
     }
 

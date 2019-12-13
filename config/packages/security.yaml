@@ -35,48 +35,30 @@ security:
   access_control:
     - { path: ^/api/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
-    - {
-        path: ^/api/users,
-        roles: IS_AUTHENTICATED_FULLY,
-        methods: [PUT, DELETE],
-      }
-    - {
-        path: ^/api/categories,
-        roles: IS_AUTHENTICATED_ANONYMOUSLY,
-        methods: [GET],
-      }
-    - {
-        path: ^/api/categories,
-        roles: ROLE_ADMIN,
-        methods: [POST, PUT, DELETE],
-      }
-    - {
-        path: ^/api/subcategories,
-        roles: IS_AUTHENTICATED_ANONYMOUSLY,
-        methods: [GET],
-      }
-    - {
-        path: ^/api/subcategories,
-        roles: ROLE_ADMIN,
-        methods: [POST, PUT, DELETE],
-      }
-    - {
-        path: ^/api/topics,
-        roles: IS_AUTHENTICATED_ANONYMOUSLY,
-        methods: [GET],
-      }
-    - {
-        path: ^/api/topics,
-        roles: IS_AUTHENTICATED_FULLY,
-        methods: [POST, PUT, DELETE],
-      }
-    - {
-        path: ^/api/topic_replies,
-        roles: IS_AUTHENTICATED_ANONYMOUSLY,
-        methods: [GET],
-      }
-    - {
-        path: ^/api/topic_replies,
-        roles: IS_AUTHENTICATED_FULLY,
-        methods: [POST, PUT, DELETE],
-      }
+    - path: ^/api/users,
+      roles: IS_AUTHENTICATED_FULLY,
+      methods: [PUT, DELETE]
+    - path: ^/api/categories,
+      roles: IS_AUTHENTICATED_ANONYMOUSLY,
+      methods: [GET]
+    - path: ^/api/categories,
+      roles: ROLE_ADMIN,
+      methods: [POST, PUT, DELETE]
+    - path: ^/api/subcategories,
+      roles: IS_AUTHENTICATED_ANONYMOUSLY,
+      methods: [GET]
+    - path: ^/api/subcategories,
+      roles: ROLE_ADMIN,
+      methods: [POST, PUT, DELETE]
+    - path: ^/api/topics,
+      roles: IS_AUTHENTICATED_ANONYMOUSLY,
+      methods: [GET]
+    - path: ^/api/topics,
+      roles: IS_AUTHENTICATED_FULLY,
+      methods: [POST, PUT, DELETE]
+    - path: ^/api/topic_replies,
+      roles: IS_AUTHENTICATED_ANONYMOUSLY,
+      methods: [GET]
+    - path: ^/api/topic_replies,
+      roles: IS_AUTHENTICATED_FULLY,
+      methods: [POST, PUT, DELETE]

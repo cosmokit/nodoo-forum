@@ -112,9 +112,7 @@ const Header: SFC<Props> = () => {
           )) || (
             <>
               <button className="subheader__link">
-                <svg>
-                  <use xlinkHref="../img/sprite.svg#icon-user" />
-                </svg>
+                <img src={`../img/users/${userData.avatar}`} />
                 {userData.username}
               </button>
               <button

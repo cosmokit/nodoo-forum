@@ -97,7 +97,8 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
                     {topic.title}
                   </NavLink>
                 </td>
-                <td className="u-text-center">
+                <td className="u-text-center user-avatar">
+                  <img src={`../img/users/${topic.author.avatar}`} />
                   <a href="#">{topic.author.username}</a>
                 </td>
                 <td className="u-text-center">

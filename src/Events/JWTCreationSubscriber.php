@@ -18,6 +18,7 @@ class JWTCreationSubscriber
 
         $payload = $event->getData();
         $payload['id'] = $user->getId();
+        $payload['avatar'] = $user->getAvatar();
 
         $event->setData($payload);
     }

@@ -39,7 +39,8 @@ const LoginPage: SFC<Props> = ({ onClose }) => {
         setUserData({
           id: data.id,
           username: data.username,
-          roles: data.roles
+          roles: data.roles,
+          avatar: data.avatar
         });
         setIsAuthenticated(true);
         onClose(false);

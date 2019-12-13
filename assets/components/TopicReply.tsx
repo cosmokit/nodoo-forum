@@ -154,6 +154,10 @@ const TopicReply: SFC<any> = ({
       )) || (
         <div className="topic-informations">
           <div className="topic-informations__author">
+            <img
+              src={`../img/users/${credentials.author.avatar}`}
+              alt="User's avatar"
+            />
             <a href="#">{credentials.author.username}</a>
           </div>
           <div className="topic-informations__main">
