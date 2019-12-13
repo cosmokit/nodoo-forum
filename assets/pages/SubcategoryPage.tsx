@@ -41,12 +41,17 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
   useEffect(() => {
     SubcategoryService.findTopicsPaginated(id, currentPage)
       .then((response: any) => {
+        if (response["hydra:member"].length === 0) {
+          return history.replace('/not-found')
+        }
         setTopics(response["hydra:member"]);
         setTotalItems(response["hydra:totalItems"]);
         setLoading(false);
       })
       .catch((err: any) => console.error(err));
   }, [currentPage]);
+
+
 
   const onPageChanged = (page: number) => {
     setCurrentPage(page);
@@ -117,7 +122,7 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
       )}
       {topics && (
         <Pagination
-          itemsPerPage={topics.length}
+          itemsPerPage={12}
           itemsLength={totalItems}
           currentPage={currentPage}
           onPageChanged={onPageChanged}
