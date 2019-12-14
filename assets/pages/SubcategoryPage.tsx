@@ -51,8 +51,6 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
       .catch((err: any) => console.error(err));
   }, [currentPage]);
 
-
-
   const onPageChanged = (page: number) => {
     setCurrentPage(page);
     if (page == 1) {
@@ -104,7 +102,7 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
                 </td>
                 <td className="u-text-center user-avatar">
                   <img src={`../img/users/${topic.author.avatar}`} />
-                  <a href="#">{topic.author.username}</a>
+                  <NavLink to={`/profile/${topic.author.id}`}>{topic.author.username}</NavLink>
                 </td>
                 <td className="u-text-center">
                   {moment(topic.createdAt).calendar()}

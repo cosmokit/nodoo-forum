@@ -9,4 +9,8 @@ function register(credentials: {
   return axios.post(USERS_URL, credentials).then(response => response);
 }
 
-export default { register };
+function find(id: number): Promise<any> {
+  return axios.get(`${USERS_URL}/${id}`).then(response => response.data);
+}
+
+export default { register, find };

@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import AuthService from "./services/auth.service";
 import AuthContext from "./contexts/auth.context";
 import NotFoundPage from "./pages/NotFoundPage";
+import ProfilePage from "./pages/ProfilePage";
+import "./scss/main.scss";
 
 AuthService.load();
 
@@ -28,14 +30,15 @@ const App = () => {
 
           <main className="main">
             <Switch>
+              <Route path="/profile/:id" component={ProfilePage} />
               <Route
                 path="/topics/new"
                 render={props =>
                   isAuthenticated ? (
                     <CreateTopicPage {...props} />
                   ) : (
-                    <Redirect to="/" />
-                  )
+                      <Redirect to="/" />
+                    )
                 }
               />
               <Route path="/topics/:slug--:id" component={TopicPage} />
@@ -53,5 +56,3 @@ const App = () => {
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));
-
-import "./scss/main.scss";
