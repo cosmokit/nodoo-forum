@@ -131,6 +131,15 @@ const Header: SFC<Props> = () => {
               </button>
               {showDropdown && (
                 <div className="dropdown__menu">
+                  <NavLink
+                    to={`/profile/${userData.id}`}
+                    className="dropdown__item"
+                  >
+                    <svg>
+                      <use xlinkHref="../img/sprite.svg#icon-user" />
+                    </svg>
+                    My profile
+                  </NavLink>
                   <button onClick={handleLogout} className="dropdown__item">
                     <svg>
                       <use xlinkHref="../img/sprite.svg#icon-sign-out" />

@@ -2,6 +2,7 @@ import React, { SFC, useState, useEffect, useContext } from "react";
 import authContext from "../contexts/auth.context";
 import topicService from "../services/topic.service";
 import subcategoryService from "../services/subcategory.service";
+import { Editor } from "@tinymce/tinymce-react";
 
 export interface Props {
   history: any;
@@ -22,9 +23,14 @@ const CreateTopicPage: SFC<Props> = ({ history }) => {
     setCredentials({ ...credentials, [name]: value });
   };
 
+  const handleEditorChange = (e: any) => {
+    setCredentials({ ...credentials, content: e.target.getContent() });
+  };
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
     credentials.subcategory = `/api/subcategories/${credentials.subcategory}`;
+
     topicService
       .create(credentials)
       .then((response: any) => {
@@ -38,6 +44,12 @@ const CreateTopicPage: SFC<Props> = ({ history }) => {
       .findAll()
       .then((response: any) => {
         setSubcategories(response["hydra:member"]);
+        if (credentials.subcategory === "") {
+          setCredentials({
+            ...credentials,
+            subcategory: response["hydra:member"][0]["id"]
+          });
+        }
       })
       .catch((err: any) => console.error(err));
   }, []);
@@ -82,23 +94,25 @@ const CreateTopicPage: SFC<Props> = ({ history }) => {
           </label>
         </div>
         <div className="form-group">
-          <textarea
-            name="content"
-            className="form__textarea"
-            value={credentials.content}
-            placeholder="Content"
-            onChange={handleChange}
-            id="content"
-            minLength={2}
-            cols={10}
-            rows={10}
-            required
-          ></textarea>
-          <label htmlFor="content" className="form__label">
-            Content
-          </label>
+          <Editor
+            apiKey={process.env.TINYMCE_API_KEY}
+            init={{
+              height: 500,
+              menubar: false,
+              plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table paste code help wordcount"
+              ],
+              toolbar:
+                "undo redo | formatselect | bold italic backcolor | \
+              alignleft aligncenter alignright alignjustify | \
+              bullist numlist outdent indent | removeformat | help"
+            }}
+            onChange={handleEditorChange}
+          />
         </div>
-        <button type="submit" className="btn">
+        <button type="submit" className="btn btn--center">
           <svg>
             <use xlinkHref="../img/sprite.svg#icon-plus" />
           </svg>

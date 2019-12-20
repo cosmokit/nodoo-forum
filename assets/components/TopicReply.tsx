@@ -4,6 +4,8 @@ import topicReplyService from "../services/topicReply.service";
 import topicService from "../services/topic.service";
 import DeleteTopicModal from "./DeleteTopicModal";
 import moment from "moment";
+import { NavLink } from "react-router-dom";
+import { Editor } from "@tinymce/tinymce-react";
 
 export interface TopicReplyProps {
   data: any;
@@ -81,6 +83,10 @@ const TopicReply: SFC<any> = ({
     setCredentials({ ...credentials, [name]: value });
   };
 
+  const handleEditorChange = (e: any) => {
+    setCredentials({ ...credentials, content: e.target.getContent() });
+  };
+
   const handleClose = (event: any) => {
     event.preventDefault();
     setShowEditForm(false);
@@ -104,6 +110,7 @@ const TopicReply: SFC<any> = ({
               <input
                 type="text"
                 name="title"
+                id="title"
                 placeholder="Title"
                 value={credentials.title}
                 className="form__input"
@@ -113,16 +120,24 @@ const TopicReply: SFC<any> = ({
             </div>
           )}
           <div className="form-group">
-            <textarea
-              name="content"
-              className="form__textarea"
-              value={credentials.content}
-              placeholder="Content"
-              onChange={handleChange}
-              minLength={2}
-              cols={10}
-              rows={10}
-            ></textarea>
+            <Editor
+              apiKey={process.env.TINYMCE_API_KEY}
+              initialValue={credentials.content}
+              init={{
+                height: 250,
+                menubar: false,
+                plugins: [
+                  "advlist autolink lists link image charmap print preview anchor",
+                  "searchreplace visualblocks code fullscreen",
+                  "insertdatetime media table paste code help wordcount"
+                ],
+                toolbar:
+                  "undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help"
+              }}
+              onChange={handleEditorChange}
+            />
           </div>
           <div className="reply__actions">
             <button
@@ -158,7 +173,9 @@ const TopicReply: SFC<any> = ({
               src={`../img/users/${credentials.author.avatar}`}
               alt="User's avatar"
             />
-            <a href="#">{credentials.author.username}</a>
+            <NavLink to={`/profile/${credentials.author.id}`}>
+              {credentials.author.username}
+            </NavLink>
           </div>
           <div className="topic-informations__main">
             <div className="topic-informations__header">
@@ -206,7 +223,9 @@ const TopicReply: SFC<any> = ({
                   </div>
                 )}
             </div>
-            <p>{credentials.content}</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: credentials.content }}
+            ></div>
             <div className="topic-informations__cta"></div>
           </div>
         </div>

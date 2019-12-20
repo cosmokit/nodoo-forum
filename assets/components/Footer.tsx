@@ -78,12 +78,12 @@ const Footer: SFC<Props> = () => {
           . LICENSE{" "}
           <a
             target="_blank"
-            href="https://github.com/Warziik/nodoo-forum/blob/master/LICENSE"
+            href="https://github.com/Eylauu/nodoo-forum/blob/master/LICENSE"
           >
             MIT
           </a>
           .{" "}
-          <a target="_blank" href="https://github.com/Warziik/nodoo-forum">
+          <a target="_blank" href="https://github.com/Eylauu/nodoo-forum">
             Source code
           </a>
         </p>

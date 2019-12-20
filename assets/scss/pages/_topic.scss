@@ -10,7 +10,7 @@
   height: 35vh;
   display: grid;
   grid-template-columns: [author-start] minmax(min-content, 15rem) [author-end main-start] 1fr [main-end];
-  box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1rem 6rem rgba(0, 0, 0, 0.05);
   &__author {
     grid-column: author-start / author-end;
 
@@ -49,7 +49,7 @@
 
   &__header-date {
     font-weight: 300;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   &__header-cta {

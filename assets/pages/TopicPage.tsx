@@ -82,7 +82,7 @@ const TopicPage: SFC<Props> = ({ match, history }) => {
             updateTitle={setTopicTtitle}
             data={topic}
             history={history}
-            deleteReply={() => { }}
+            deleteReply={() => {}}
           />
           <hr />
         </>
@@ -100,7 +100,7 @@ const TopicPage: SFC<Props> = ({ match, history }) => {
         replies.map((reply: any) => (
           <TopicReply
             isTopic={false}
-            updateTitle={() => { }}
+            updateTitle={() => {}}
             key={reply.id}
             data={reply}
             history={history}
@@ -118,10 +118,10 @@ const TopicPage: SFC<Props> = ({ match, history }) => {
       {(isAuthenticated && topic && (
         <TopicReplyForm topic_id={topic.id} addReply={addReply} />
       )) || (
-          <p className="u-text-center u-margin-top-sm">
-            You must be logged in to write a reply.
+        <p className="u-text-center u-margin-top-sm">
+          You must be logged in to write a reply.
         </p>
-        )}
+      )}
     </div>
   );
 };

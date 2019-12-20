@@ -41,9 +41,6 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
   useEffect(() => {
     SubcategoryService.findTopicsPaginated(id, currentPage)
       .then((response: any) => {
-        if (response["hydra:member"].length === 0) {
-          return history.replace('/not-found')
-        }
         setTopics(response["hydra:member"]);
         setTotalItems(response["hydra:totalItems"]);
         setLoading(false);
@@ -102,7 +99,9 @@ const SubcategoryPage: SFC<Props> = ({ match, history, location }) => {
                 </td>
                 <td className="u-text-center user-avatar">
                   <img src={`../img/users/${topic.author.avatar}`} />
-                  <NavLink to={`/profile/${topic.author.id}`}>{topic.author.username}</NavLink>
+                  <NavLink to={`/profile/${topic.author.id}`}>
+                    {topic.author.username}
+                  </NavLink>
                 </td>
                 <td className="u-text-center">
                   {moment(topic.createdAt).calendar()}

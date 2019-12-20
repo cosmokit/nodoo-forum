@@ -1,6 +1,7 @@
 import React, { SFC, useState, useContext } from "react";
 import topicReplyService from "../services/topicReply.service";
 import authContext from "../contexts/auth.context";
+import { Editor } from "@tinymce/tinymce-react";
 
 export interface TopicReplyFormProps {
   topic_id: number;
@@ -12,8 +13,8 @@ const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id, addReply }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const { userData } = useContext(authContext);
 
-  const handleChange = (event: any) => {
-    setContent(event.target.value);
+  const handleChange = (e: any) => {
+    setContent(e.target.getContent());
   };
 
   const handleSubmit = (event: any) => {
@@ -49,20 +50,25 @@ const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id, addReply }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <textarea
-          name="content"
-          className="form__textarea"
+        <Editor
+          apiKey={process.env.TINYMCE_API_KEY}
+          initialValue={content}
           value={content}
-          placeholder="Content"
+          init={{
+            height: 250,
+            menubar: false,
+            plugins: [
+              "advlist autolink lists link image charmap print preview anchor",
+              "searchreplace visualblocks code fullscreen",
+              "insertdatetime media table paste code help wordcount"
+            ],
+            toolbar:
+              "undo redo | formatselect | bold italic backcolor | \
+              alignleft aligncenter alignright alignjustify | \
+              bullist numlist outdent indent | removeformat | help"
+          }}
           onChange={handleChange}
-          id="content"
-          minLength={2}
-          cols={10}
-          rows={10}
-        ></textarea>
-        <label htmlFor="content" className="form__label">
-          Content
-        </label>
+        />
       </div>
       <button
         type="submit"

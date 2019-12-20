@@ -74,6 +74,7 @@ Encore
 
   .configureDefinePlugin(options => {
     options["process.env"].API_URL = process.env.API_URL;
+    options["process.env"].TINYMCE_API_KEY = process.env.TINYMCE_API_KEY;
   });
 
 module.exports = Encore.getWebpackConfig();
