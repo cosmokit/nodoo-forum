@@ -1,4 +1,5 @@
 import React, { SFC, useEffect, useState, useContext } from "react";
+import { Helmet } from 'react-helmet';
 import topicService from "../services/topic.service";
 import TopicLoader from "../components/loaders/topic.loader";
 import Pagination from "../components/Pagination";
@@ -72,57 +73,64 @@ const TopicPage: SFC<Props> = ({ match, history }) => {
   }, [currentPage]);
 
   return (
-    <div className="topicpage">
-      {loading && <TopicLoader />}
-      {!loading && topic && (
-        <>
-          <h1>{topicTitle}</h1>
-          <TopicReply
-            isTopic={true}
-            updateTitle={setTopicTtitle}
-            data={topic}
-            history={history}
-            deleteReply={() => {}}
+    <>
+      <Helmet>
+        {!loading && topic && <title>{topicTitle} - Nodoo Forum</title> || <title>Loading... - Nodoo Forum</title>
+        }
+      </Helmet>
+      <div className="topicpage">
+        {loading && <TopicLoader />}
+        {!loading && topic && (
+          <>
+            <h1>{topicTitle}</h1>
+            <TopicReply
+              isTopic={true}
+              updateTitle={setTopicTtitle}
+              data={topic}
+              history={history}
+              deleteReply={() => { }}
+            />
+            <hr />
+          </>
+        )}
+        {replies && (
+          <Pagination
+            itemsPerPage={20}
+            itemsLength={totalItems}
+            currentPage={currentPage}
+            onPageChanged={onPageChanged}
           />
-          <hr />
-        </>
-      )}
-      {replies && (
-        <Pagination
-          itemsPerPage={20}
-          itemsLength={totalItems}
-          currentPage={currentPage}
-          onPageChanged={onPageChanged}
-        />
-      )}
-      {!loading &&
-        replies &&
-        replies.map((reply: any) => (
-          <TopicReply
-            isTopic={false}
-            updateTitle={() => {}}
-            key={reply.id}
-            data={reply}
-            history={history}
-            deleteReply={deleteReply}
+        )}
+        {!loading &&
+          replies &&
+          replies.map((reply: any) => (
+            <TopicReply
+              isTopic={false}
+              updateTitle={() => { }}
+              key={reply.id}
+              data={reply}
+              history={history}
+              deleteReply={deleteReply}
+            />
+          ))}
+        {replies && (
+          <Pagination
+            itemsPerPage={20}
+            itemsLength={totalItems}
+            currentPage={currentPage}
+            onPageChanged={onPageChanged}
           />
-        ))}
-      {replies && (
-        <Pagination
-          itemsPerPage={20}
-          itemsLength={totalItems}
-          currentPage={currentPage}
-          onPageChanged={onPageChanged}
-        />
-      )}
-      {(isAuthenticated && topic && (
-        <TopicReplyForm topic_id={topic.id} addReply={addReply} />
-      )) || (
-        <p className="u-text-center u-margin-top-sm">
-          You must be logged in to write a reply.
+        )}
+        {(isAuthenticated && topic && (
+          <TopicReplyForm topic_id={topic.id} addReply={addReply} />
+        )) || (
+            <p className="u-text-center u-margin-top-sm">
+              You must be logged in to write a reply.
         </p>
-      )}
-    </div>
+          )}
+      </div>
+    </>
+
   );
 };
 

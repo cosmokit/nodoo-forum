@@ -12,7 +12,7 @@ import AuthContext from "./contexts/auth.context";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
 import "./scss/main.scss";
-import ForgotPassword from "./pages/ForgotPasswordPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 AuthService.load();
@@ -36,7 +36,7 @@ const App = () => {
                 path="/reset-password/:token"
                 component={ResetPasswordPage}
               />
-              <Route path="/forgot-password" component={ForgotPassword} />
+              <Route path="/forgot-password" component={ForgotPasswordPage} />
               <Route path="/profile/:id" component={ProfilePage} />
               <Route
                 path="/topics/new"

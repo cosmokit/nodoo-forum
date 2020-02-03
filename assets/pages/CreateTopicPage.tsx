@@ -1,4 +1,5 @@
 import React, { SFC, useState, useEffect, useContext } from "react";
+import { Helmet } from 'react-helmet';
 import authContext from "../contexts/auth.context";
 import topicService from "../services/topic.service";
 import subcategoryService from "../services/subcategory.service";
@@ -55,71 +56,76 @@ const CreateTopicPage: SFC<Props> = ({ history }) => {
   }, []);
 
   return (
-    <div className="createTopicPage">
-      <h1>Create a new topic</h1>
-      <form onSubmit={handleSubmit}>
-        {subcategories && (
-          <div className="form-group">
-            <select
-              className="form__select"
-              name="subcategory"
-              id="subcategory"
-              onChange={handleChange}
-              value={credentials.subcategory}
-            >
-              {subcategories.map((subcategory: any) => (
-                <option key={subcategory.id} value={subcategory.id}>
-                  {subcategory.name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="subcategory" className="form__label">
-              Subcategory
+    <>
+      <Helmet>
+        <title>Create a new topic - Nodoo Forum</title>
+      </Helmet>
+      <div className="createTopicPage">
+        <h1>Create a new topic</h1>
+        <form onSubmit={handleSubmit}>
+          {subcategories && (
+            <div className="form-group">
+              <select
+                className="form__select"
+                name="subcategory"
+                id="subcategory"
+                onChange={handleChange}
+                value={credentials.subcategory}
+              >
+                {subcategories.map((subcategory: any) => (
+                  <option key={subcategory.id} value={subcategory.id}>
+                    {subcategory.name}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="subcategory" className="form__label">
+                Subcategory
             </label>
-          </div>
-        )}
-        <div className="form-group">
-          <input
-            type="text"
-            className="form__input"
-            placeholder="Title"
-            name="title"
-            id="title"
-            value={credentials.title}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="title" className="form__label">
-            Title
+            </div>
+          )}
+          <div className="form-group">
+            <input
+              type="text"
+              className="form__input"
+              placeholder="Title"
+              name="title"
+              id="title"
+              value={credentials.title}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="title" className="form__label">
+              Title
           </label>
-        </div>
-        <div className="form-group">
-          <Editor
-            apiKey={process.env.TINYMCE_API_KEY}
-            init={{
-              height: 500,
-              menubar: false,
-              plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste code help wordcount"
-              ],
-              toolbar:
-                "undo redo | formatselect | bold italic backcolor | \
+          </div>
+          <div className="form-group">
+            <Editor
+              apiKey={process.env.TINYMCE_API_KEY}
+              init={{
+                height: 500,
+                menubar: false,
+                plugins: [
+                  "advlist autolink lists link image charmap print preview anchor",
+                  "searchreplace visualblocks code fullscreen",
+                  "insertdatetime media table paste code help wordcount"
+                ],
+                toolbar:
+                  "undo redo | formatselect | bold italic backcolor | \
               alignleft aligncenter alignright alignjustify | \
               bullist numlist outdent indent | removeformat | help"
-            }}
-            onChange={handleEditorChange}
-          />
-        </div>
-        <button type="submit" className="btn btn--center">
-          <svg>
-            <use xlinkHref="../img/sprite.svg#icon-plus" />
-          </svg>
-          Create
+              }}
+              onChange={handleEditorChange}
+            />
+          </div>
+          <button type="submit" className="btn btn--center">
+            <svg>
+              <use xlinkHref="../img/sprite.svg#icon-plus" />
+            </svg>
+            Create
         </button>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   );
 };
 

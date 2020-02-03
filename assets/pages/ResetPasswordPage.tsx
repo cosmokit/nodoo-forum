@@ -1,4 +1,5 @@
-import React, { SFC, useState } from "react";
+import React, { useState } from "react";
+import { Helmet } from 'react-helmet';
 import userService from "../services/user.service";
 
 export interface Props {
@@ -31,71 +32,76 @@ const ResetPasswordPage: React.SFC<Props> = props => {
     }
 
     userService
-        .resetPassword(token, credentials.password)
-        .then(() => {
-          setSubmit(false);
-          props.history.replace('/');
-        })
-        .catch(err => {
-          console.error(err);
-          setError("An error occured during the process, please try again later.");
-          setSubmit(false);
-        });
+      .resetPassword(token, credentials.password)
+      .then(() => {
+        setSubmit(false);
+        props.history.replace('/');
+      })
+      .catch(err => {
+        console.error(err);
+        setError("An error occured during the process, please try again later.");
+        setSubmit(false);
+      });
   };
 
   return (
-    <div className="resetPasswordPage">
-      <h1>Reset password</h1>
-      <p>Please enter your new password in the field below, once done you can log in.</p>
-      {error && <div className="alert-danger">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <input
-            type="password"
-            className="form__input"
-            id="password"
-            name="password"
-            placeholder="New Password"
-            value={credentials.password}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="password" className="form__label">
-            New Password
+    <>
+      <Helmet>
+        <title>Reset password - Nodoo Forum</title>
+      </Helmet>
+      <div className="resetPasswordPage">
+        <h1>Reset password</h1>
+        <p>Please enter your new password in the field below, once done you can log in.</p>
+        {error && <div className="alert-danger">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="password"
+              className="form__input"
+              id="password"
+              name="password"
+              placeholder="New Password"
+              value={credentials.password}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="password" className="form__label">
+              New Password
           </label>
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            className="form__input"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={credentials.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="confirmPassword" className="form__label">
-            Confirm Password
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className="form__input"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={credentials.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="confirmPassword" className="form__label">
+              Confirm Password
           </label>
-        </div>
-        <button
+          </div>
+          <button
             type="submit"
             className={`btn btn--center ${
-                isSubmit ? "btn--disabled" : ""
-            }`}
-        >
-          {(!isSubmit && (
+              isSubmit ? "btn--disabled" : ""
+              }`}
+          >
+            {(!isSubmit && (
               <>
                 <svg>
                   <use xlinkHref="../img/sprite.svg#icon-pencil" />
                 </svg>
                 Change
               </>
-          )) || <>Loading...</>}
-        </button>
-      </form>
-    </div>
+            )) || <>Loading...</>}
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
