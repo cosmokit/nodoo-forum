@@ -10,7 +10,7 @@ const HomeLoader: React.SFC<Props> = () => {
       width={400}
       speed={2}
       primaryColor="#f3f3f3"
-      secondaryColor="#f3f3f3"
+      secondaryColor="#c0c0c0"
     >
       <rect x="6" y="10" rx="4" ry="4" width="209" height="21" />
       <rect x="10" y="41" rx="3" ry="3" width="193" height="15" />

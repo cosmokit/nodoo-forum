@@ -51,7 +51,7 @@ const RegisterPage: SFC<Props> = ({ onClose }) => {
         email: credentiels.email,
         password: credentiels.password
       })
-        .then((response: any) => {
+        .then(() => {
           onClose(false);
           setSubmit(false);
         })
@@ -193,50 +193,6 @@ const RegisterPage: SFC<Props> = ({ onClose }) => {
               )) || <>Loading...</>}
             </button>
           </form>
-        </div>
-        <div className="register-box__aside">
-          <button className="register-box__aside-socialMedias--twitter">
-            <a href="#" title="Register with Twitter">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-twitter" />
-              </svg>
-            </a>
-          </button>
-          <button className="register-box__aside-socialMedias--facebook">
-            <a href="#" title="Register with Facebook">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-facebook" />
-              </svg>
-            </a>
-          </button>
-          <button className="register-box__aside-socialMedias--github">
-            <a href="#" title="Register with Github">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-github" />
-              </svg>
-            </a>
-          </button>
-          <button className="register-box__aside-socialMedias--spotify">
-            <a href="#" title="Register with Spotify">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-spotify" />
-              </svg>
-            </a>
-          </button>
-          <button className="register-box__aside-socialMedias--steam">
-            <a href="#" title="Register with Steam">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-steam" />
-              </svg>
-            </a>
-          </button>
-          <button className="register-box__aside-socialMedias--discord">
-            <a href="#" title="Register with Discord">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-discord" />
-              </svg>
-            </a>
-          </button>
         </div>
       </div>
     </div>

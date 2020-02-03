@@ -12,6 +12,8 @@ import AuthContext from "./contexts/auth.context";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
 import "./scss/main.scss";
+import ForgotPassword from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 AuthService.load();
 
@@ -30,6 +32,11 @@ const App = () => {
 
           <main className="main">
             <Switch>
+              <Route
+                path="/reset-password/:token"
+                component={ResetPasswordPage}
+              />
+              <Route path="/forgot-password" component={ForgotPassword} />
               <Route path="/profile/:id" component={ProfilePage} />
               <Route
                 path="/topics/new"
@@ -37,8 +44,8 @@ const App = () => {
                   isAuthenticated ? (
                     <CreateTopicPage {...props} />
                   ) : (
-                      <Redirect to="/" />
-                    )
+                    <Redirect to="/" />
+                  )
                 }
               />
               <Route path="/topics/:slug--:id" component={TopicPage} />

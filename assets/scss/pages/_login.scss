@@ -1,77 +1,7 @@
 .login-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 75%;
-  background-image: linear-gradient(
-    105deg,
-    var(--color-dark) 0%,
-    var(--color-primary-light) 50%,
-    transparent 50%
-  );
-  background-size: 100%;
-  &__aside {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    width: 45%;
-    justify-items: center;
-    align-items: center;
-    grid-row-gap: 3rem;
-    h2 {
-      grid-column: 1 / -1;
-    }
-    button {
-      grid-column: span 1;
-      width: 7rem;
-      height: 7rem;
-      cursor: pointer;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-
-      transition: all 0.2s;
-
-      &:hover {
-        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
-        transform: translateY(-1rem);
-      }
-      &:focus {
-        outline: none;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-        transform: translateY(-0.1rem);
-      }
-    }
-    svg {
-      width: 5rem;
-      height: 5rem;
-      fill: var(--color-white);
-    }
-
-    &-socialMedias--twitter {
-      background-color: #55acee;
-    }
-    &-socialMedias--facebook {
-      background-color: #3b5999;
-    }
-    &-socialMedias--github {
-      background-color: #000;
-    }
-    &-socialMedias--spotify {
-      background-color: #1ed760;
-    }
-    &-socialMedias--steam {
-      background-color: #000;
-    }
-    &-socialMedias--discord {
-      background-color: #7289da;
-    }
-  }
+  width: 25%;
   &__body {
-    padding: 4rem 2rem;
+    padding: 2rem;
     text-align: center;
-    width: 45%;
   }
 }

@@ -13,4 +13,16 @@ function find(id: number): Promise<any> {
   return axios.get(`${USERS_URL}/${id}`).then(response => response.data);
 }
 
-export default { register, find };
+function sendResetPasswordEmail(email: string): Promise<any> {
+  return axios
+    .post(`${USERS_URL}/forgot_password`, { email })
+    .then(response => response);
+}
+
+function resetPassword(token: string, password: string): Promise<any> {
+  return axios
+      .post(`${USERS_URL}/reset_password`, {token, password})
+      .then(response => response);
+}
+
+export default { register, find, sendResetPasswordEmail, resetPassword };

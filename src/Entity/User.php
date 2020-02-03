@@ -22,6 +22,24 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ApiResource(
  *      normalizationContext={"groups"={"users_read"}},
+ *      collectionOperations={
+ *          "get",
+ *          "post",
+ *          "post_forgotPassword"={
+ *              "method"="POST",
+ *              "path"="/users/forgot_password",
+ *              "controller"=App\Controller\ForgotPasswordController::class,
+ *              "deserialize"=false,
+ *              "swagger_context"={"summary"="Send an email to the user's address."}
+ *          },
+ *          "post_resetPassword"={
+ *              "method"="POST",
+ *              "path"="/users/reset_password",
+ *              "controller"=App\Controller\ResetPasswordController::class,
+ *              "deserialize"=false,
+ *              "swagger_context"={"summary"="Reset user's password by sending an email."}
+ *          },
+ *      },
  *      itemOperations={
  *         "get",
  *         "put"={"security"="is_granted('ROLE_ADMIN') or object == user"},
@@ -119,6 +137,11 @@ class User implements UserInterface
      * @Groups({"users_read"})
      */
     private $topicReplies;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetPasswordToken;
 
     public function __construct()
     {
@@ -333,6 +356,18 @@ class User implements UserInterface
                 $topicReply->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getResetPasswordToken(): ?string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    public function setResetPasswordToken(?string $resetPasswordToken): self
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
 
         return $this;
     }

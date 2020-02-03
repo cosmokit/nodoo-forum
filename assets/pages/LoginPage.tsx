@@ -1,6 +1,7 @@
 import React, { SFC, useState, useEffect, useContext, useReducer } from "react";
 import AuthService from "../services/auth.service";
 import AuthContext from "../contexts/auth.context";
+import { NavLink } from "react-router-dom";
 
 export interface Props {
   onClose: (value: boolean) => void;
@@ -74,50 +75,6 @@ const LoginPage: SFC<Props> = ({ onClose }) => {
         <button onClick={handleClose} className="modal__close">
           &times;
         </button>
-        <div className="login-box__aside">
-          <button className="login-box__aside-socialMedias--twitter">
-            <a href="#" title="Login with Twitter">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-twitter" />
-              </svg>
-            </a>
-          </button>
-          <button className="login-box__aside-socialMedias--facebook">
-            <a href="#" title="Login with Facebook">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-facebook" />
-              </svg>
-            </a>
-          </button>
-          <button className="login-box__aside-socialMedias--github">
-            <a href="#" title="Login with Github">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-github" />
-              </svg>
-            </a>
-          </button>
-          <button className="login-box__aside-socialMedias--spotify">
-            <a href="#" title="Login with Spotify">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-spotify" />
-              </svg>
-            </a>
-          </button>
-          <button className="login-box__aside-socialMedias--steam">
-            <a href="#" title="Login with Steam">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-steam" />
-              </svg>
-            </a>
-          </button>
-          <button className="login-box__aside-socialMedias--discord">
-            <a href="#" title="Login with Discord">
-              <svg>
-                <use xlinkHref="../img/sprite.svg#icon-discord" />
-              </svg>
-            </a>
-          </button>
-        </div>
         <div className="modal__body login-box__body">
           <h2 className="modal__title heading-2">Login</h2>
           {error && <div className="alert-danger">{error}</div>}
@@ -152,9 +109,10 @@ const LoginPage: SFC<Props> = ({ onClose }) => {
                 Password
               </label>
             </div>
+            <NavLink to={`/forgot-password`} className="link">Forgot password ?</NavLink>
             <button
               type="submit"
-              className={`btn btn--long ${isSubmit ? "btn--disabled" : ""}`}
+              className={`btn btn--center btn--small ${isSubmit ? "btn--disabled" : ""}`}
             >
               {(!isSubmit && (
                 <>

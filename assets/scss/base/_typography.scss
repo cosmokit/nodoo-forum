@@ -10,6 +10,12 @@ p {
   line-height: 1.6;
 }
 
+.link, .link:visited {
+  display: block;
+  color: var(--color-dark);
+  margin: 2rem 0;
+}
+
 .underline-link {
   color: var(--color-dark);
   text-decoration: none;

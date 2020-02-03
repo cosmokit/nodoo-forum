@@ -5,7 +5,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import AuthContext from "../contexts/auth.context";
 
-export interface Props {}
+export interface Props { }
 
 const Header: SFC<Props> = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -110,46 +110,46 @@ const Header: SFC<Props> = () => {
               </button>
             </>
           )) || (
-            <>
-              <button className="subheader__link">
-                <img src={`../img/users/${userData.avatar}`} />
-                {userData.username}
-              </button>
-              <button
-                onClick={handleDropdownMenu}
-                className="dropdown__btn u-margin-left-sm"
-              >
-                {(!showDropdown && (
-                  <svg>
-                    <use xlinkHref="../img/sprite.svg#icon-chevron-down" />
-                  </svg>
-                )) || (
-                  <svg>
-                    <use xlinkHref="../img/sprite.svg#icon-chevron-up" />
-                  </svg>
-                )}
-              </button>
-              {showDropdown && (
-                <div className="dropdown__menu">
-                  <NavLink
-                    to={`/profile/${userData.id}`}
-                    className="dropdown__item"
-                  >
+              <>
+                <button className="subheader__link">
+                  <img src={`../img/users/${userData.avatar}`} />
+                  {userData.username}
+                </button>
+                <button
+                  onClick={handleDropdownMenu}
+                  className="dropdown__btn u-margin-left-sm"
+                >
+                  {(!showDropdown && (
                     <svg>
-                      <use xlinkHref="../img/sprite.svg#icon-user" />
+                      <use xlinkHref="../img/sprite.svg#icon-chevron-down" />
                     </svg>
-                    My profile
+                  )) || (
+                      <svg>
+                        <use xlinkHref="../img/sprite.svg#icon-chevron-up" />
+                      </svg>
+                    )}
+                </button>
+                {showDropdown && (
+                  <div className="dropdown__menu">
+                    <NavLink
+                      to={`/profile/${userData.id}`}
+                      className="dropdown__item"
+                    >
+                      <svg>
+                        <use xlinkHref="../img/sprite.svg#icon-user" />
+                      </svg>
+                      My profile
                   </NavLink>
-                  <button onClick={handleLogout} className="dropdown__item">
-                    <svg>
-                      <use xlinkHref="../img/sprite.svg#icon-sign-out" />
-                    </svg>
-                    Logout
+                    <button onClick={handleLogout} className="dropdown__item">
+                      <svg>
+                        <use xlinkHref="../img/sprite.svg#icon-sign-out" />
+                      </svg>
+                      Logout
                   </button>
-                </div>
-              )}
-            </>
-          )}
+                  </div>
+                )}
+              </>
+            )}
         </div>
       </div>
     </>

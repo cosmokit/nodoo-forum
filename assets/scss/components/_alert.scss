@@ -3,7 +3,7 @@
   padding: 2rem 0;
   margin: 1rem 0;
   border-top: 2px solid #000;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .alert-danger {
@@ -11,4 +11,18 @@
   color: rgba(124, 37, 37, 0.452);
   border-top: 2px solid rgba(124, 37, 37, 0.452);
   background-color: rgba(255, 231, 231, 0.952);
+}
+
+.alert-info {
+  @extend %alert;
+  color: rgba(37, 64, 124, 0.452);
+  border-top: 2px solid rgba(37, 64, 124, 0.452);
+  background-color: rgba(231, 239, 255, 0.952);
+}
+
+.alert-success {
+  @extend %alert;
+  color: rgba(37, 124, 51, 0.452);
+  border-top: 2px solid rgba(37, 124, 51, 0.452);
+  background-color: rgba(231, 255, 234, 0.952);
 }

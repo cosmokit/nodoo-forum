@@ -53,13 +53,14 @@
   }
 
   &--square {
-    border-radius: 0rem;
+    border-radius: 0;
     text-transform: none;
   }
 
   &--small {
     font-size: 1.4rem;
-    padding: 1rem 2rem;
+    text-transform: none;
+    padding: 1.3rem 2.5rem;
   }
 
   &--light {

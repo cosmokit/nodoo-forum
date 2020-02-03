@@ -24,3 +24,7 @@ yarn-error.log
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+### Jetbrains's editor ###
+/.idea
+### Jetbrains's editor ###

@@ -1,15 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
-
-- [Nodoo Forum](#nodoo-forum)
-  - [Installation](#installation)
-  - [Demo](#demo)
-  - [License](#license)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Nodoo Forum
 
 Forum software developed with [Symfony](https://symfony.com/) and [React](https://fr.reactjs.org/).
