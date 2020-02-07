@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Helmet } from 'react-helmet';
 
-export interface NotFoundPageProps { }
+interface Props { }
 
-const NotFoundPage: React.SFC<NotFoundPageProps> = () => {
+const NotFoundPage: React.SFC<Props> = () => {
   return (
     <>
       <Helmet>

@@ -1,10 +1,11 @@
-import React, { SFC, useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { Helmet } from 'react-helmet'
 import userService from "../services/user.service";
+import Button from "../components/Button";
 
-export interface Props { }
+interface Props { }
 
-const ForgotPasswordPage: SFC<Props> = () => {
+const ForgotPasswordPage: React.SFC<Props> = () => {
     const [email, setEmail] = useState("");
     const [isSubmit, setSubmit] = useState(false);
     const [error, setError] = useState();
@@ -14,8 +15,8 @@ const ForgotPasswordPage: SFC<Props> = () => {
         setEmail(event.target.value);
     };
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         setSubmit(true);
 
         userService
@@ -65,21 +66,7 @@ const ForgotPasswordPage: SFC<Props> = () => {
                             required
                         />
                     </div>
-                    <button
-                        type="submit"
-                        className={`btn btn--center btn--small btn--square ${
-                            isSubmit ? "btn--disabled" : ""
-                            }`}
-                    >
-                        {(!isSubmit && (
-                            <>
-                                <svg>
-                                    <use xlinkHref="../img/sprite.svg#icon-envelope" />
-                                </svg>
-                                Submit
-                          </>
-                        )) || <>Loading...</>}
-                    </button>
+                    <Button isSubmit={isSubmit} className="btn--center btn--small btn--square" icon="envelope" text="Submit" />
                 </form>
                 <hr />
                 <div className="alert-info">

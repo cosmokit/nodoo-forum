@@ -1,12 +1,13 @@
-import React, { SFC, useState, useEffect, useContext } from "react";
-import AuthContext from "../contexts/auth.context";
+import React, { useState } from "react";
 import UserService from "../services/user.service";
-
-export interface Props {
-  onClose: (value: boolean) => void;
+import Modal from "../components/Modal";
+import Button from "../components/Button";
+interface Props {
+  isDisplayed: (value: boolean) => void;
+  displayStatus: boolean;
 }
 
-const RegisterPage: SFC<Props> = ({ onClose }) => {
+const RegisterPage: React.SFC<Props> = ({ isDisplayed, displayStatus }) => {
   const [credentiels, setCredentials] = useState({
     username: "",
     email: "",
@@ -19,19 +20,11 @@ const RegisterPage: SFC<Props> = ({ onClose }) => {
     password: "",
     confirmPassword: ""
   });
-  const [opacity, setOpacity] = useState(0);
-  const [transform, setTransform] = useState(
-    "translate(-50%, -50%) scale(0.25)"
-  );
   const [isSubmit, setSubmit] = useState(false);
 
   const handleChange = (event: any) => {
     const { name, value } = event.currentTarget;
     setCredentials({ ...credentiels, [name]: value });
-  };
-
-  const handleClose = () => {
-    onClose(false);
   };
 
   const handleSubmit = (event: any) => {
@@ -52,7 +45,7 @@ const RegisterPage: SFC<Props> = ({ onClose }) => {
         password: credentiels.password
       })
         .then(() => {
-          onClose(false);
+          isDisplayed(false);
           setSubmit(false);
         })
         .catch(err => {
@@ -68,134 +61,99 @@ const RegisterPage: SFC<Props> = ({ onClose }) => {
     }
   };
 
-  useEffect(() => {
-    let isSubscribed = true;
-
-    if (isSubscribed) {
-      setOpacity(1);
-      setTransform("translate(-50%, -50%) scale(1)");
-    }
-
-    return () => {
-      isSubscribed = false;
-    };
-  });
-
   return (
-    <div className="modal" style={{ opacity: opacity, visibility: "visible" }}>
-      <div
-        className="modal__content register-box"
-        style={{ opacity: opacity, transform: transform }}
-      >
-        <button onClick={handleClose} className="modal__close">
-          &times;
-        </button>
-        <div className="modal__body register-box__body">
-          <h2 className="modal__title heading-2">Register</h2>
-          <form onSubmit={handleSubmit} autoComplete="off">
-            <div className="form-group">
-              <input
-                type="text"
-                className={`form__input ${
-                  errors.username ? "form__input--invalid" : ""
-                }`}
-                placeholder="Username"
-                name="username"
-                id="username"
-                value={credentiels.username}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="username" className="form__label">
-                Username
+    <Modal isDisplayed={isDisplayed} displayStatus={displayStatus} title="Register" boxWidth={30}>
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <div className="form-group">
+          <input
+            type="text"
+            className={`form__input ${
+              errors.username ? "form__input--invalid" : ""
+              }`}
+            placeholder="Username"
+            name="username"
+            id="username"
+            value={credentiels.username}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="username" className="form__label">
+            Username
               </label>
-              {errors.username && (
-                <span className="form__invalid-feedback">
-                  {errors.username}
-                </span>
-              )}
-            </div>
-            <div className="form-group">
-              <input
-                type="email"
-                className={`form__input ${
-                  errors.email ? "form__input--invalid" : ""
-                }`}
-                placeholder="Email address"
-                name="email"
-                id="email"
-                value={credentiels.email}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="email" className="form__label">
-                Email address
-              </label>
-              {errors.email && (
-                <span className="form__invalid-feedback">{errors.email}</span>
-              )}
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className={`form__input ${
-                  errors.password ? "form__input--invalid" : ""
-                }`}
-                placeholder="Password"
-                name="password"
-                id="password"
-                value={credentiels.password}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="password" className="form__label">
-                Password
-              </label>
-              {errors.password && (
-                <span className="form__invalid-feedback">
-                  {errors.password}
-                </span>
-              )}
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className={`form__input ${
-                  errors.confirmPassword ? "form__input--invalid" : ""
-                }`}
-                placeholder="Password confirmation"
-                name="confirmPassword"
-                id="confirmPassword"
-                value={credentiels.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="confirmPassword" className="form__label">
-                Password confirmation
-              </label>
-              {errors.confirmPassword && (
-                <span className="form__invalid-feedback">
-                  {errors.confirmPassword}
-                </span>
-              )}
-            </div>
-            <button
-              type="submit"
-              className={`btn btn--long ${isSubmit ? "btn--disabled" : ""}`}
-            >
-              {(!isSubmit && (
-                <>
-                  <svg>
-                    <use xlinkHref="../img/sprite.svg#icon-user" />
-                  </svg>
-                  Register
-                </>
-              )) || <>Loading...</>}
-            </button>
-          </form>
+          {errors.username && (
+            <span className="form__invalid-feedback">
+              {errors.username}
+            </span>
+          )}
         </div>
-      </div>
-    </div>
+        <div className="form-group">
+          <input
+            type="email"
+            className={`form__input ${
+              errors.email ? "form__input--invalid" : ""
+              }`}
+            placeholder="Email address"
+            name="email"
+            id="email"
+            value={credentiels.email}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="email" className="form__label">
+            Email address
+              </label>
+          {errors.email && (
+            <span className="form__invalid-feedback">{errors.email}</span>
+          )}
+        </div>
+        <div className="form-group">
+          <input
+            type="password"
+            className={`form__input ${
+              errors.password ? "form__input--invalid" : ""
+              }`}
+            placeholder="Password"
+            name="password"
+            id="password"
+            value={credentiels.password}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="password" className="form__label">
+            Password
+              </label>
+          {errors.password && (
+            <span className="form__invalid-feedback">
+              {errors.password}
+            </span>
+          )}
+        </div>
+        <div className="form-group">
+          <input
+            type="password"
+            className={`form__input ${
+              errors.confirmPassword ? "form__input--invalid" : ""
+              }`}
+            placeholder="Password confirmation"
+            name="confirmPassword"
+            id="confirmPassword"
+            value={credentiels.confirmPassword}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="confirmPassword" className="form__label">
+            Password confirmation
+              </label>
+          {errors.confirmPassword && (
+            <span className="form__invalid-feedback">
+              {errors.confirmPassword}
+            </span>
+          )}
+        </div>
+        <Button isSubmit={isSubmit} className="btn--long" icon="user" text="Register" />
+      </form>
+    </Modal>
+
   );
 };
 

@@ -5,6 +5,7 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+
     svg {
       fill: var(--color-white);
       width: 1.1rem;
@@ -20,34 +21,51 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid var(--color-grey-light-2);
     border-radius: 7px;
-    background-color: white;
+    background-color: #FFF;
+    box-shadow: 0 1rem 4rem rgba(0, 0, 0, .1);
+    position: absolute;
+    top: 4.8rem;
+    right: 0;
+
+    &:before {
+      content: "";
+      position: absolute;
+      right: 7%;
+      bottom: 100%;
+      border-bottom: 8px solid #FFF;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+    }
   }
 
   &__item {
-    width: 100%;
-    margin: 1.2rem 6rem;
+    padding: 1.9rem 5rem;
     text-decoration: none;
     font-size: 1.3rem;
     color: var(--color-grey);
     border: none;
-    background-color: var(--color-white);
-    cursor: pointer;
-    transition: all 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #FFF;
+    cursor: pointer;
 
     svg {
       fill: var(--color-grey);
       width: 1.5rem;
       height: 1.5rem;
-      margin-right: 0.5rem;
+      margin-right: 1.5rem;
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid var(--color-grey-light);
+      border-bottom: 1px solid var(--color-grey-light-2);
+    }
+
+    transition: background-color .3s;
+
+    &:hover {
+      background-color: #f1f1f1;
     }
   }
 }

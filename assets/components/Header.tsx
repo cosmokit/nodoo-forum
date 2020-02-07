@@ -1,13 +1,14 @@
-import React, { SFC, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import AuthContext from "../contexts/auth.context";
+import Dropdown from "./Dropdown";
 
-export interface Props { }
+interface Props { }
 
-const Header: SFC<Props> = () => {
+const Header: React.SFC<Props> = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const {
@@ -18,18 +19,6 @@ const Header: SFC<Props> = () => {
   } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleLogin = () => {
-    setShowLoginModal(true);
-  };
-
-  const handleRegister = () => {
-    setShowRegisterModal(true);
-  };
-
-  const handleDropdownMenu = () => {
-    setShowDropdown(!showDropdown);
-  };
-
   const handleLogout = () => {
     AuthService.logout();
     setIsAuthenticated(false);
@@ -38,8 +27,8 @@ const Header: SFC<Props> = () => {
 
   return (
     <>
-      {showLoginModal && <LoginPage onClose={setShowLoginModal} />}
-      {showRegisterModal && <RegisterPage onClose={setShowRegisterModal} />}
+      {showLoginModal && <LoginPage isDisplayed={setShowLoginModal} displayStatus={showLoginModal} />}
+      {showRegisterModal && <RegisterPage isDisplayed={setShowRegisterModal} displayStatus={showRegisterModal} />}
 
       <header className="header">
         <nav className="header__nav">
@@ -61,6 +50,7 @@ const Header: SFC<Props> = () => {
         </a>
       </header>
       <div className="subheader">
+        {/*
         <nav className="subheader__nav">
           <li>
             <NavLink to="/" className="subheader__link">
@@ -87,11 +77,12 @@ const Header: SFC<Props> = () => {
             </NavLink>
           </li>
         </nav>
+        */}
         <div className="subheader__user-informations">
           {(!isAuthenticated && (
             <>
               <button
-                onClick={handleLogin}
+                onClick={() => setShowLoginModal(true)}
                 className="subheader__link subheader__user-informations-btn"
               >
                 <svg>
@@ -100,7 +91,7 @@ const Header: SFC<Props> = () => {
                 Login
               </button>
               <button
-                onClick={handleRegister}
+                onClick={() => setShowRegisterModal(true)}
                 className="subheader__link subheader__user-informations-btn"
               >
                 <svg>
@@ -111,12 +102,12 @@ const Header: SFC<Props> = () => {
             </>
           )) || (
               <>
-                <button className="subheader__link">
+                <div className="subheader__user-informations-name">
                   <img src={`../img/users/${userData.avatar}`} />
                   {userData.username}
-                </button>
+                </div>
                 <button
-                  onClick={handleDropdownMenu}
+                  onClick={() => setShowDropdown(!showDropdown)}
                   className="dropdown__btn u-margin-left-sm"
                 >
                   {(!showDropdown && (
@@ -129,25 +120,23 @@ const Header: SFC<Props> = () => {
                       </svg>
                     )}
                 </button>
-                {showDropdown && (
-                  <div className="dropdown__menu">
-                    <NavLink
-                      to={`/profile/${userData.id}`}
-                      className="dropdown__item"
-                    >
-                      <svg>
-                        <use xlinkHref="../img/sprite.svg#icon-user" />
-                      </svg>
-                      My profile
+                {showDropdown && <Dropdown isDisplayed={setShowDropdown} displayStatus={showDropdown}>
+                  <NavLink
+                    to={`/profile/${userData.id}`}
+                    className="dropdown__item"
+                  >
+                    <svg>
+                      <use xlinkHref="../img/sprite.svg#icon-user" />
+                    </svg>
+                    Profile
                   </NavLink>
-                    <button onClick={handleLogout} className="dropdown__item">
-                      <svg>
-                        <use xlinkHref="../img/sprite.svg#icon-sign-out" />
-                      </svg>
-                      Logout
+                  <button onClick={handleLogout} className="dropdown__item">
+                    <svg>
+                      <use xlinkHref="../img/sprite.svg#icon-sign-out" />
+                    </svg>
+                    Logout
                   </button>
-                  </div>
-                )}
+                </Dropdown>}
               </>
             )}
         </div>

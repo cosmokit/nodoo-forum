@@ -62,13 +62,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 3rem;
+  padding: 0 20.5rem;
   height: 7vh;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   z-index: 10;
 
   &__nav {
-    margin-left: 20.5rem;
     display: flex;
 
     li {
@@ -105,27 +104,30 @@
       outline: none;
     }
 
-    img {
-      height: 3.2rem;
-      width: 3.2rem;
-      margin-right: 1rem;
-      border-radius: 50%;
-    }
+
   }
 
   &__user-informations {
-    margin-right: 20.5rem;
+    margin-left: auto;
     display: flex;
     position: relative;
 
-    .dropdown__menu {
-      position: absolute;
-      top: 4rem;
-      right: 0;
-    }
-
     &-btn:last-child {
       margin-left: 3rem;
+    }
+
+    &-name {
+      display: flex;
+      align-items: center;
+      color: var(--color-white);
+      opacity: 0.9;
+
+      img {
+        height: 3.2rem;
+        width: 3.2rem;
+        margin-right: 1rem;
+        border-radius: 50%;
+      }
     }
   }
 }

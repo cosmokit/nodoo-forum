@@ -10,23 +10,26 @@ p {
   line-height: 1.6;
 }
 
-.link, .link:visited {
-  display: block;
+.link,
+.link:visited {
+  display: inline-block;
   color: var(--color-dark);
-  margin: 2rem 0;
+  margin-bottom: 2rem;
+  transition: color .3s;
+
+  &:hover {
+    color: var(--color-primary);
+  }
 }
 
 .underline-link {
   color: var(--color-dark);
   text-decoration: none;
-  background: linear-gradient(
-      to top,
+  background: linear-gradient(to top,
       transparent 10%,
       rgba(#b43232, 0.5) 10.01%,
       rgba(#b43232, 0.5) 40%,
-      transparent 40.01%
-    )
-    no-repeat left bottom / 0 100%;
+      transparent 40.01%) no-repeat left bottom / 0 100%;
   transition: background-size 0.5s;
 
   &:hover,
@@ -39,6 +42,7 @@ p {
   display: inline-block;
   color: var(--color-dark);
   position: relative;
+
   &:after {
     content: "";
     transform-origin: 0 0;

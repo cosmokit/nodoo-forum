@@ -1,22 +1,18 @@
-import React, { SFC, PropsWithChildren, FunctionComponentElement } from "react";
+import React from "react";
 
-export interface Props {
+interface Props {
   itemsPerPage: number;
   itemsLength: number;
   currentPage: number;
-  onPageChanged: any;
+  onPageChanged: (value: number) => void;
 }
 
-const Pagination: SFC<Props> = ({
+const Pagination: React.SFC<Props> = ({
   itemsPerPage,
   itemsLength,
   currentPage,
   onPageChanged
-}: PropsWithChildren<Props>): FunctionComponentElement<Props> => {
-  const handleChange = (page: number) => {
-    onPageChanged(page);
-  };
-
+}) => {
   const pages: Array<number> = [];
   const totalPagesCount: number = Math.ceil(itemsLength / itemsPerPage);
   for (let i: number = 1; i <= totalPagesCount; i++) {
@@ -31,7 +27,7 @@ const Pagination: SFC<Props> = ({
             <li className="pagination__item">
               <button
                 className="pagination__button"
-                onClick={() => handleChange(currentPage - 1)}
+                onClick={() => onPageChanged(currentPage - 1)}
               >
                 &laquo;
               </button>
@@ -42,11 +38,11 @@ const Pagination: SFC<Props> = ({
               key={page}
               className={`pagination__item ${
                 page === currentPage ? "pagination__item--active" : ""
-              }`}
+                }`}
             >
               <button
                 className="pagination__button"
-                onClick={() => handleChange(page)}
+                onClick={() => onPageChanged(page)}
               >
                 {page}
               </button>
@@ -56,7 +52,7 @@ const Pagination: SFC<Props> = ({
             <li className="pagination__item">
               <button
                 className="pagination__button"
-                onClick={() => handleChange(currentPage + 1)}
+                onClick={() => onPageChanged(currentPage + 1)}
               >
                 &raquo;
               </button>

@@ -1,4 +1,4 @@
-import React, { SFC, useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Helmet } from 'react-helmet';
 import topicService from "../services/topic.service";
 import TopicLoader from "../components/loaders/topic.loader";
@@ -7,12 +7,13 @@ import AuthContext from "../contexts/auth.context";
 import TopicReplyForm from "../components/TopicReplyForm";
 import TopicReply from "../components/TopicReply";
 
-export interface Props {
+interface Props {
   match: any;
+  location: any;
   history: any;
 }
 
-const TopicPage: SFC<Props> = ({ match, history }) => {
+const TopicPage: React.SFC<Props> = ({ match, history, location }) => {
   const [topic, setTopic] = useState();
   const [topicTitle, setTopicTtitle] = useState();
   const [replies, setReplies] = useState();
@@ -75,7 +76,7 @@ const TopicPage: SFC<Props> = ({ match, history }) => {
   return (
     <>
       <Helmet>
-        {!loading && topic && <title>{topicTitle} - Nodoo Forum</title> || <title>Loading... - Nodoo Forum</title>
+        {!loading && topicTitle && <title>{topicTitle} - Nodoo Forum</title> || <title>Loading... - Nodoo Forum</title>
         }
       </Helmet>
       <div className="topicpage">
@@ -95,7 +96,7 @@ const TopicPage: SFC<Props> = ({ match, history }) => {
         )}
         {replies && (
           <Pagination
-            itemsPerPage={20}
+            itemsPerPage={12}
             itemsLength={totalItems}
             currentPage={currentPage}
             onPageChanged={onPageChanged}
@@ -112,10 +113,11 @@ const TopicPage: SFC<Props> = ({ match, history }) => {
               history={history}
               deleteReply={deleteReply}
             />
-          ))}
+          ))
+        }
         {replies && (
           <Pagination
-            itemsPerPage={20}
+            itemsPerPage={12}
             itemsLength={totalItems}
             currentPage={currentPage}
             onPageChanged={onPageChanged}

@@ -1,27 +1,27 @@
-import React, { SFC, useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { Helmet } from 'react-helmet'
 import CategoryService from "../services/category.service";
 import HomeLoader from "../components/loaders/home.loader";
 import { NavLink } from "react-router-dom";
 
-export interface Props { }
+interface Props { }
 
-export interface Categories {
+interface Categories {
   id: number;
   name: string;
   slug: string;
   subcategories: Array<Subcategories>;
 }
 
-export interface Subcategories {
+interface Subcategories {
   id: number;
   name: string;
   slug: string;
   category: Array<Categories>;
-  topics: Array<any>;
+  topics: Array<Object>;
 }
 
-const HomePage: SFC<Props> = () => {
+const HomePage: React.SFC<Props> = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 

@@ -1,15 +1,15 @@
-import React, { SFC, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Helmet } from 'react-helmet';
 import authContext from "../contexts/auth.context";
 import topicService from "../services/topic.service";
 import subcategoryService from "../services/subcategory.service";
 import { Editor } from "@tinymce/tinymce-react";
+import Button from "../components/Button";
+import { RouteComponentProps } from "react-router-dom";
 
-export interface Props {
-  history: any;
-}
+interface Props extends RouteComponentProps { }
 
-const CreateTopicPage: SFC<Props> = ({ history }) => {
+const CreateTopicPage: React.SFC<Props> = ({ history }) => {
   const { userData } = useContext(authContext);
   const [credentials, setCredentials] = useState({
     title: "",
@@ -17,10 +17,11 @@ const CreateTopicPage: SFC<Props> = ({ history }) => {
     author: `/api/users/${userData.id}`,
     subcategory: ""
   });
+  const [isSubmit, setSubmit] = useState(false);
   const [subcategories, setSubcategories] = useState();
 
-  const handleChange = (event: any) => {
-    const { name, value } = event.target;
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
   };
 
@@ -28,8 +29,9 @@ const CreateTopicPage: SFC<Props> = ({ history }) => {
     setCredentials({ ...credentials, content: e.target.getContent() });
   };
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    setSubmit(true);
     credentials.subcategory = `/api/subcategories/${credentials.subcategory}`;
 
     topicService
@@ -37,7 +39,10 @@ const CreateTopicPage: SFC<Props> = ({ history }) => {
       .then((response: any) => {
         history.replace(`/topics/${response.data.slug}--${response.data.id}`);
       })
-      .catch((err: any) => console.error(err));
+      .catch((err: any) => {
+        console.error(err);
+        setSubmit(false);
+      });
   };
 
   useEffect(() => {
@@ -117,12 +122,7 @@ const CreateTopicPage: SFC<Props> = ({ history }) => {
               onChange={handleEditorChange}
             />
           </div>
-          <button type="submit" className="btn btn--center">
-            <svg>
-              <use xlinkHref="../img/sprite.svg#icon-plus" />
-            </svg>
-            Create
-        </button>
+          <Button isSubmit={isSubmit} className="btn--center" icon="plus" text="Create" />
         </form>
       </div>
     </>

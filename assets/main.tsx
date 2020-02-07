@@ -22,6 +22,7 @@ const App = () => {
     AuthService.isAuthenticated()
   );
   const [userData, setUserData] = useState(AuthService.getUserData());
+
   return (
     <AuthContext.Provider
       value={{ isAuthenticated, setIsAuthenticated, userData, setUserData }}
@@ -44,8 +45,8 @@ const App = () => {
                   isAuthenticated ? (
                     <CreateTopicPage {...props} />
                   ) : (
-                    <Redirect to="/" />
-                  )
+                      <Redirect to="/" />
+                    )
                 }
               />
               <Route path="/topics/:slug--:id" component={TopicPage} />

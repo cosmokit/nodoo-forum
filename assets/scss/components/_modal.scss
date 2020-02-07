@@ -21,6 +21,12 @@
     background-color: var(--color-white);
     transform: translate(-50%, -50%) scale(0.25);
     transition: all 0.5s 0.2s;
+    min-width: 25%;
+  }
+
+  &__body {
+    padding: 2rem;
+    text-align: center;
   }
 
   &__cta {
@@ -42,8 +48,19 @@
     background-color: transparent;
     cursor: pointer;
     color: var(--color-dark);
+
     &:hover {
       color: var(--color-primary);
     }
+  }
+
+  &--open {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1)
+  }
+
+  &--close {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.25);
   }
 }

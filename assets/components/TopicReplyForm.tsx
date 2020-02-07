@@ -2,13 +2,14 @@ import React, { SFC, useState, useContext } from "react";
 import topicReplyService from "../services/topicReply.service";
 import authContext from "../contexts/auth.context";
 import { Editor } from "@tinymce/tinymce-react";
+import Button from "./Button";
 
-export interface TopicReplyFormProps {
+interface Props {
   topic_id: number;
-  addReply: (value: any) => void;
+  addReply: (value: Object) => void;
 }
 
-const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id, addReply }) => {
+const TopicReplyForm: React.SFC<Props> = ({ topic_id, addReply }) => {
   const [content, setContent] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
   const { userData } = useContext(authContext);
@@ -70,19 +71,7 @@ const TopicReplyForm: SFC<TopicReplyFormProps> = ({ topic_id, addReply }) => {
           onChange={handleChange}
         />
       </div>
-      <button
-        type="submit"
-        className={`btn btn--center ${isSubmit ? "btn--disabled" : ""}`}
-      >
-        {(!isSubmit && (
-          <>
-            <svg>
-              <use xlinkHref="../img/sprite.svg#icon-reply" />
-            </svg>
-            Reply
-          </>
-        )) || <>Loading...</>}
-      </button>
+      <Button isSubmit={isSubmit} className="btn--center" icon="reply" text="Reply" />
     </form>
   );
 };

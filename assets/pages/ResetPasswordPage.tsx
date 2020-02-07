@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Helmet } from 'react-helmet';
 import userService from "../services/user.service";
-
-export interface Props {
+import Button from "../components/Button";
+interface Props {
   match: any;
   history: any;
 }
@@ -84,21 +84,7 @@ const ResetPasswordPage: React.SFC<Props> = props => {
               Confirm Password
           </label>
           </div>
-          <button
-            type="submit"
-            className={`btn btn--center ${
-              isSubmit ? "btn--disabled" : ""
-              }`}
-          >
-            {(!isSubmit && (
-              <>
-                <svg>
-                  <use xlinkHref="../img/sprite.svg#icon-pencil" />
-                </svg>
-                Change
-              </>
-            )) || <>Loading...</>}
-          </button>
+          <Button isSubmit={isSubmit} icon="pencil" className="btn--center" text="Change" />
         </form>
       </div>
     </>

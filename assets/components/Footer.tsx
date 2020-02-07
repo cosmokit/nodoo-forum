@@ -1,9 +1,9 @@
-import React, { SFC } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
-export interface Props {}
+interface Props { }
 
-const Footer: SFC<Props> = () => {
+const Footer: React.SFC<Props> = () => {
   return (
     <>
       <footer className="footer">
@@ -73,7 +73,7 @@ const Footer: SFC<Props> = () => {
         <p>
           Developed and designed by{" "}
           <a target="_blank" href="https://alex-chesnay.fr">
-            Alex Chesnay (Warzik)
+            Alex Chesnay
           </a>
           . LICENSE{" "}
           <a

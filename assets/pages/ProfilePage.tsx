@@ -1,15 +1,15 @@
-import React, { SFC, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from 'react-helmet';
 import userService from "../services/user.service";
 import moment from "moment";
 import ProfileLoader from "../components/loaders/profile.loader";
+import { RouteComponentProps } from "react-router-dom";
 
-export interface Props {
+interface Props extends RouteComponentProps {
   match: any;
-  history: any;
 }
 
-const ProfilePage: SFC<Props> = ({ match, history }) => {
+const ProfilePage: React.SFC<Props> = ({ match, history }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
   const id: number = parseInt(match.params.id);

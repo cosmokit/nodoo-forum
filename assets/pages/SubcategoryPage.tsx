@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import authContext from "../contexts/auth.context";
 import moment from "moment";
 
-export interface Props {
+interface Props {
   match: any;
   history: any;
   location: any;
