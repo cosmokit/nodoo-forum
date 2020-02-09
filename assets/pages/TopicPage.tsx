@@ -6,6 +6,7 @@ import Pagination from "../components/Pagination";
 import AuthContext from "../contexts/auth.context";
 import TopicReplyForm from "../components/TopicReplyForm";
 import TopicReply from "../components/TopicReply";
+import TopicRepliesLoader from "../components/loaders/topicReplies.loader";
 
 interface Props {
   match: any;
@@ -17,9 +18,10 @@ const TopicPage: React.SFC<Props> = ({ match, history, location }) => {
   const [topic, setTopic] = useState();
   const [topicTitle, setTopicTtitle] = useState();
   const [replies, setReplies] = useState();
-  const [loading, setLoading] = useState(true);
+  const [topicLoading, setTopicLoading] = useState(true);
+  const [repliesLoading, setRepliesLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(
-    parseInt(location.search.substr(6)) || 1
+    parseInt(location.search.substr(-1)) || 1
   );
   const [totalItems, setTotalItems] = useState();
   const { isAuthenticated } = useContext(AuthContext);
@@ -56,6 +58,7 @@ const TopicPage: React.SFC<Props> = ({ match, history, location }) => {
         }
         setTopic(data);
         setTopicTtitle(data.title);
+        setTopicLoading(false);
       })
       .catch(err => {
         history.replace("/");
@@ -68,7 +71,7 @@ const TopicPage: React.SFC<Props> = ({ match, history, location }) => {
       .then((response: any) => {
         setReplies(response["hydra:member"]);
         setTotalItems(response["hydra:totalItems"]);
-        setLoading(false);
+        setRepliesLoading(false);
       })
       .catch((err: any) => console.error(err));
   }, [currentPage]);
@@ -76,12 +79,12 @@ const TopicPage: React.SFC<Props> = ({ match, history, location }) => {
   return (
     <>
       <Helmet>
-        {!loading && topicTitle && <title>{topicTitle} - Nodoo Forum</title> || <title>Loading... - Nodoo Forum</title>
+        {!topicLoading && topicTitle && <title>{topicTitle} - Nodoo Forum</title> || <title>Loading... - Nodoo Forum</title>
         }
       </Helmet>
       <div className="topicpage">
-        {loading && <TopicLoader />}
-        {!loading && topic && (
+        {topicLoading && <TopicLoader />}
+        {!topicLoading && topic && (
           <>
             <h1>{topicTitle}</h1>
             <TopicReply
@@ -91,19 +94,19 @@ const TopicPage: React.SFC<Props> = ({ match, history, location }) => {
               history={history}
               deleteReply={() => { }}
             />
-            <hr />
           </>
         )}
-        {replies && (
+        <hr />
+        {repliesLoading && <TopicRepliesLoader />}
+        {!repliesLoading && replies && (
           <Pagination
-            itemsPerPage={12}
+            itemsPerPage={10}
             itemsLength={totalItems}
             currentPage={currentPage}
             onPageChanged={onPageChanged}
           />
         )}
-        {!loading &&
-          replies &&
+        {!repliesLoading && replies &&
           replies.map((reply: any) => (
             <TopicReply
               isTopic={false}
@@ -115,21 +118,20 @@ const TopicPage: React.SFC<Props> = ({ match, history, location }) => {
             />
           ))
         }
-        {replies && (
+        {!repliesLoading && replies && (
           <Pagination
-            itemsPerPage={12}
+            itemsPerPage={10}
             itemsLength={totalItems}
             currentPage={currentPage}
             onPageChanged={onPageChanged}
           />
         )}
-        {(isAuthenticated && topic && (
+        {!topicLoading && topic && isAuthenticated &&
           <TopicReplyForm topic_id={topic.id} addReply={addReply} />
-        )) || (
-            <p className="u-text-center u-margin-top-sm">
-              You must be logged in to write a reply.
-        </p>
-          )}
+        }
+        {!topicLoading && topic && !isAuthenticated && <p className="u-text-center u-margin-top-sm">
+          You must be logged in to write a reply.
+        </p>}
       </div>
     </>
 

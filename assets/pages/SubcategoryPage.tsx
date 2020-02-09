@@ -19,7 +19,7 @@ const SubcategoryPage: React.SFC<Props> = ({ match, history, location }) => {
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(
-    parseInt(location.search.substr(6)) || 1
+    parseInt(location.search.substr(-1)) || 1
   );
   const { isAuthenticated } = useContext(authContext);
 

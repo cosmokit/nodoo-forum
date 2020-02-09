@@ -1,33 +1,38 @@
 import * as React from "react";
 import ContentLoader from "react-content-loader";
 
-export interface Props {}
+export interface Props { }
 
 const SubcategoryLoader: React.SFC<Props> = () => {
   return (
     <ContentLoader
-      height={160}
+      height={97}
       width={400}
       speed={2}
       primaryColor="#f3f3f3"
       secondaryColor="#c0c0c0"
     >
-      <rect x="6" y="10" rx="4" ry="4" width="209" height="21" />
-      <rect x="7" y="45" rx="3" ry="3" width="193" height="9" />
-      <rect x="212" y="45" rx="3" ry="3" width="60" height="9" />
-      <rect x="280" y="45" rx="0" ry="0" width="90" height="9" />
-      <rect x="7" y="65" rx="3" ry="3" width="193" height="9" />
-      <rect x="212" y="65" rx="3" ry="3" width="60" height="9" />
-      <rect x="280" y="65" rx="0" ry="0" width="90" height="9" />
-      <rect x="7" y="85" rx="3" ry="3" width="193" height="9" />
-      <rect x="212" y="85" rx="3" ry="3" width="60" height="9" />
-      <rect x="280" y="85" rx="0" ry="0" width="90" height="9" />
-      <rect x="7" y="105" rx="3" ry="3" width="193" height="9" />
-      <rect x="212" y="105" rx="3" ry="3" width="60" height="9" />
-      <rect x="280" y="105" rx="0" ry="0" width="90" height="9" />
-      <rect x="7" y="125" rx="3" ry="3" width="193" height="9" />
-      <rect x="212" y="125" rx="3" ry="3" width="60" height="9" />
-      <rect x="280" y="125" rx="0" ry="0" width="90" height="9" />
+      <rect x="0" y="0" rx="4" ry="4" width="209" height="15" />
+      <rect x="0" y="25" rx="3" ry="3" width="190" height="7" />
+      <rect x="200" y="25" rx="3" ry="3" width="60" height="7" />
+      <rect x="270" y="25" rx="0" ry="0" width="60" height="7" />
+      <rect x="340" y="25" rx="0" ry="0" width="60" height="7" />
+      <rect x="0" y="40" rx="3" ry="3" width="190" height="7" />
+      <rect x="200" y="40" rx="3" ry="3" width="60" height="7" />
+      <rect x="270" y="40" rx="0" ry="0" width="60" height="7" />
+      <rect x="340" y="40" rx="0" ry="0" width="60" height="7" />
+      <rect x="0" y="55" rx="3" ry="3" width="190" height="7" />
+      <rect x="200" y="55" rx="3" ry="3" width="60" height="7" />
+      <rect x="270" y="55" rx="0" ry="0" width="60" height="7" />
+      <rect x="340" y="55" rx="0" ry="0" width="60" height="7" />
+      <rect x="0" y="70" rx="3" ry="3" width="190" height="7" />
+      <rect x="200" y="70" rx="3" ry="3" width="60" height="7" />
+      <rect x="270" y="70" rx="0" ry="0" width="60" height="7" />
+      <rect x="340" y="70" rx="0" ry="0" width="60" height="7" />
+      <rect x="0" y="85" rx="3" ry="3" width="190" height="7" />
+      <rect x="200" y="85" rx="3" ry="3" width="60" height="7" />
+      <rect x="270" y="85" rx="0" ry="0" width="60" height="7" />
+      <rect x="340" y="85" rx="0" ry="0" width="60" height="7" />
     </ContentLoader>
   );
 };

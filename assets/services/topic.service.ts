@@ -1,14 +1,27 @@
 import axios from "axios";
 import { TOPICS_URL } from "../config";
+import Cache from './cache.service';
 
-function find(id: number): Promise<any> {
-  return axios.get(`${TOPICS_URL}/${id}`).then(response => response.data);
+async function find(id: number): Promise<any> {
+  const cachedTopic = await Cache.get(`topic-${id}`);
+  if (cachedTopic) return cachedTopic;
+  return axios.get(`${TOPICS_URL}/${id}`).then(response => {
+    const topic = response.data;
+    Cache.set(`topic-${id}`, topic);
+    return topic;
+  });
 }
 
-function findRepliesPaginated(id: number, currentPage: number): Promise<any> {
+async function findRepliesPaginated(id: number, currentPage: number): Promise<any> {
+  const cachedReplies = await Cache.get(`replies-${id}-${currentPage}`);
+  if (cachedReplies) return cachedReplies;
   return axios
     .get(`${TOPICS_URL}/${id}/replies?page=${currentPage}`)
-    .then(response => response.data);
+    .then(response => {
+      const replies = response.data;
+      Cache.set(`replies-${id}-${currentPage}`, replies)
+      return replies;
+    });
 }
 
 function create(credentials: {
@@ -17,7 +30,7 @@ function create(credentials: {
   author: string;
   subcategory: string;
 }): Promise<any> {
-  return axios.post(`${TOPICS_URL}`, credentials).then(response => response);
+  return axios.post(`${TOPICS_URL}`, credentials);
 }
 
 function update(credentials: any): Promise<any> {

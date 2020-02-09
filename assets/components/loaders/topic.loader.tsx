@@ -1,21 +1,19 @@
 import React, { SFC } from "react";
 import ContentLoader from "react-content-loader";
 
-export interface Props {}
+export interface Props { }
 
 const TopicLoader: SFC<Props> = () => {
   return (
     <ContentLoader
-      height={160}
+      height={80}
       width={400}
       speed={2}
       primaryColor="#f3f3f3"
       secondaryColor="#c0c0c0"
     >
-      <rect x="6" y="10" rx="4" ry="4" width="209" height="21" />
-      <rect x="8" y="39" rx="3" ry="3" width="693" height="32" />
-      <rect x="8" y="80" rx="3" ry="3" width="693" height="32" />
-      <rect x="8" y="121" rx="3" ry="3" width="693" height="32" />
+      <rect x="6" y="0" rx="4" ry="4" width="209" height="16" />
+      <rect x="6" y="26" rx="4" ry="4" width="693" height="70" />
     </ContentLoader>
   );
 };

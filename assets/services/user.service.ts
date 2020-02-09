@@ -1,5 +1,6 @@
 import axios from "axios";
 import { USERS_URL } from "../config";
+import Cache from './cache.service';
 
 function register(credentials: {
   username: string;
@@ -9,8 +10,14 @@ function register(credentials: {
   return axios.post(USERS_URL, credentials).then(response => response);
 }
 
-function find(id: number): Promise<any> {
-  return axios.get(`${USERS_URL}/${id}`).then(response => response.data);
+async function find(id: number): Promise<any> {
+  const cachedUser = await Cache.get(`user-${id}`);
+  if (cachedUser) return cachedUser;
+  return axios.get(`${USERS_URL}/${id}`).then(response => {
+    const user = response.data;
+    Cache.set(`user-${id}`, user);
+    return user;
+  });
 }
 
 function sendResetPasswordEmail(email: string): Promise<any> {
@@ -21,8 +28,8 @@ function sendResetPasswordEmail(email: string): Promise<any> {
 
 function resetPassword(token: string, password: string): Promise<any> {
   return axios
-      .post(`${USERS_URL}/reset_password`, {token, password})
-      .then(response => response);
+    .post(`${USERS_URL}/reset_password`, { token, password })
+    .then(response => response);
 }
 
 export default { register, find, sendResetPasswordEmail, resetPassword };

@@ -62,6 +62,7 @@ const LoginPage: React.SFC<Props> = ({ isDisplayed, displayStatus }) => {
             value={credentiels.username}
             onChange={handleChange}
             required
+            autoFocus
           />
           <label htmlFor="username" className="form__label">
             Username
